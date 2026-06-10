@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPICALIGN — Sophia Bian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:#fdfaf4; --paper2:#f5f1e8; --ink:#1a1a10; --ink-mid:#4a4a38;
+    --ink-muted:#7a7860; --ink-faint:#b0aa90; --rule:#2a2a1e;
+    --sage:#3a5a3e; --sage-light:#8aaa8e; --sage-pale:#d4e2d6;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville',serif; font-size:15px; line-height:1.7; }
+  .masthead { border-top:3px solid var(--rule); border-bottom:1px solid var(--rule); padding:0.5rem 5vw; display:flex; justify-content:space-between; align-items:center; }
+  .masthead-vol { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:500; letter-spacing:0.12em; color:var(--ink-muted); text-transform:uppercase; }
+  .masthead-logo { font-family:'IM Fell English',serif; font-size:1.5rem; color:var(--ink); }
+  .masthead-logo a { color:inherit; text-decoration:none; }
+  .masthead-right { font-family:'DM Sans',sans-serif; font-size:0.62rem; color:var(--ink-muted); text-align:right; letter-spacing:0.06em; line-height:1.5; }
+  nav { border-bottom:2px solid var(--rule); padding:0.45rem 5vw; display:flex; justify-content:center; gap:0; }
+  nav a { font-family:'DM Sans',sans-serif; font-size:0.7rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-muted); text-decoration:none; padding:0.25rem 1.4rem; border-right:1px solid #d0c8b0; transition:color 0.2s; }
+  nav a:first-child { border-left:1px solid #d0c8b0; }
+  nav a:hover, nav a.active { color:var(--ink); }
+  .back-bar { padding:1rem 5vw; border-bottom:1px solid #e0d8c4; background:var(--paper2); }
+  .back-link { font-family:'DM Sans',sans-serif; font-size:0.68rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); text-decoration:none; transition:color 0.2s; }
+  .back-link:hover { color:var(--sage); }
+  .article-header { padding:2.5rem 5vw 0; border-bottom:1px solid #d0c8b0; }
+  .article-kicker { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.6rem; display:flex; gap:1.2rem; align-items:center; flex-wrap:wrap; }
+  .status-badge { display:inline-block; font-family:'DM Sans',sans-serif; font-size:0.58rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; border:1px solid var(--ink-faint); color:var(--ink-faint); padding:0.18rem 0.6rem; }
+  .article-title { font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(2rem,4vw,3rem); line-height:1.1; color:var(--ink); font-weight:400; margin-bottom:1rem; margin-top:0.5rem; }
+  .article-title em { color:var(--sage); }
+  .article-desc { font-size:0.9rem; color:var(--ink-muted); line-height:1.85; max-width:680px; margin-bottom:1.5rem; }
+  .tag-row { display:flex; gap:0.4rem; flex-wrap:wrap; padding-bottom:1.8rem; }
+  .tag { font-family:'DM Sans',sans-serif; font-size:0.62rem; color:var(--ink-muted); padding:0.18rem 0.55rem; border:1px solid #d0c8b0; }
+  .photo-placeholder { width:100%; height:300px; background:linear-gradient(150deg,#2a1f35,#3d2850); display:flex; align-items:center; justify-content:center; border-top:1px solid #d0c8b0; }
+  .photo-placeholder p { font-family:'Libre Baskerville',serif; font-size:0.72rem; font-style:italic; color:rgba(255,255,255,0.35); }
+  .article-body { display:grid; grid-template-columns:2fr 1fr; border-bottom:2px solid var(--rule); }
+  .main-col { padding:2.5rem 3rem 2.5rem 5vw; border-right:1px solid #d0c8b0; }
+  .side-col { padding:2.5rem 5vw 2.5rem 2.5rem; background:var(--paper2); }
+  .section-rule { border:none; border-top:2px solid var(--rule); margin-bottom:0.5rem; }
+  .section-rule-thin { border:none; border-top:1px solid #d0c8b0; margin:2rem 0 1.2rem; }
+  .section-num { font-family:'DM Sans',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-muted); margin-bottom:0.5rem; }
+  .section-title { font-family:'IM Fell English',serif; font-size:1.3rem; color:var(--ink); font-weight:400; margin-bottom:0.8rem; }
+  .body-p { font-size:0.88rem; color:var(--ink-mid); line-height:1.9; margin-bottom:0.85rem; }
+  .body-p em { color:var(--sage); font-style:italic; }
+  .comp-table { width:100%; border-collapse:collapse; margin:0.8rem 0 1.2rem; font-size:0.82rem; }
+  .comp-table th { font-family:'DM Sans',sans-serif; font-size:0.6rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink-faint); padding:0.5rem 0.8rem; text-align:left; border-bottom:2px solid var(--rule); }
+  .comp-table td { color:var(--ink-muted); padding:0.75rem 0.8rem; border-bottom:1px solid #e8e0cc; vertical-align:top; line-height:1.7; }
+  .comp-table td:first-child { font-family:'DM Sans',sans-serif; font-weight:600; color:var(--ink); font-size:0.8rem; white-space:nowrap; }
+  .detail-list { list-style:none; display:flex; flex-direction:column; gap:0.6rem; margin:0.5rem 0 1rem; }
+  .detail-list li { font-size:0.86rem; color:var(--ink-muted); padding-left:1.4rem; position:relative; line-height:1.75; }
+  .detail-list li::before { content:'—'; position:absolute; left:0; color:var(--ink-faint); }
+  .side-section { margin-bottom:1.8rem; padding-bottom:1.8rem; border-bottom:1px solid #d4ccb4; }
+  .side-section:last-child { border-bottom:none; margin-bottom:0; }
+  .side-label { font-family:'DM Sans',sans-serif; font-size:0.58rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.8rem; }
+  .side-stat { font-family:'IM Fell English',serif; font-size:1.5rem; color:var(--ink); line-height:1; margin-bottom:0.15rem; }
+  .side-stat-label { font-family:'DM Sans',sans-serif; font-size:0.65rem; color:var(--ink-muted); }
+  footer { background:var(--ink); border-top:1px solid rgba(255,255,255,0.08); padding:1rem 5vw; display:flex; justify-content:space-between; font-family:'DM Sans',sans-serif; font-size:0.62rem; color:rgba(255,255,255,0.25); letter-spacing:0.06em; }
+  footer a { color:rgba(255,255,255,0.25); text-decoration:none; }
+  @media (max-width:768px) { .article-body { grid-template-columns:1fr; } nav a { padding:0.25rem 0.8rem; } }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <span class="masthead-vol">Portfolio · Vol. I</span>
+  <span class="masthead-logo"><a href="index.html">Sophia Bian</a></span>
+  <span class="masthead-right">Northwestern University<br>Electrical Engineering</span>
+</div>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="projects.html" class="active">Projects</a>
+  <a href="music.html">Music</a>
+  <a href="resume.html">Résumé</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="index.html#contact">Contact</a>
+</nav>
+
+<div class="back-bar">
+  <a href="projects.html" class="back-link">← Back to all projects</a>
+</div>
+
+<div class="article-header">
+  <div class="article-kicker">
+    <span>Sept – Dec 2025</span>
+    <span class="status-badge">Completed</span>
+  </div>
+  <h1 class="article-title">SPICALIGN —<br><em>Pediatric</em> Medical Device</h1>
+  <p class="article-desc">
+    An intraoperative positioning device designed to correctly orient pediatric hip spica casts
+    for car-seat compatibility — developed in collaboration with Lurie Children's Hospital
+    at the Segal Design Institute.
+  </p>
+  <div class="tag-row">
+    <span class="tag">Mechanical Design</span>
+    <span class="tag">Medical Device</span>
+    <span class="tag">Prototyping</span>
+    <span class="tag">User Research</span>
+    <span class="tag">Lurie Children's Hospital</span>
+  </div>
+  <div class="photo-placeholder">
+    <p>Photo coming soon — drop spicalign.jpg into the portfolio-journal folder</p>
+  </div>
+</div>
+
+<div class="article-body">
+  <div class="main-col">
+
+    <hr class="section-rule">
+    <p class="section-num">1. The Problem</p>
+    <h2 class="section-title">Background</h2>
+    <p class="body-p">
+      When young children receive hip spica casts for conditions like hip dysplasia or femur fractures,
+      the cast must be carefully positioned to allow safe use of a car seat — a critical safety requirement
+      for discharge. Currently, surgeons and nurses estimate this positioning by eye, which can lead to
+      misalignment and the need for <em>cast revisions</em>.
+    </p>
+    <p class="body-p">
+      SPICALIGN provides a mechanical solution: a device that holds the cast in the correct orientation
+      during the casting process itself, removing the guesswork from an already demanding procedure.
+    </p>
+
+    <hr class="section-rule-thin">
+    <p class="section-num">2. The Device</p>
+    <h2 class="section-title">Mechanical System</h2>
+    <p class="body-p">
+      The device uses a compact actuation system to position and hold a child's legs at the correct
+      angles during casting. Key requirements included adjustability across patient sizes,
+      ease of use in an OR environment, and sterility compatibility.
+    </p>
+    <table class="comp-table">
+      <thead><tr><th>Component</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Linear Actuator</td><td>Primary height/position adjustment for accommodating different patient sizes</td></tr>
+        <tr><td>Servo Motors</td><td>Controlled angular positioning of leg supports</td></tr>
+        <tr><td>Telescoping Arms</td><td>Adjustable reach to accommodate varied patient anatomy</td></tr>
+        <tr><td>Foot-Pedal Control</td><td>Hands-free operation for surgeons working in a sterile field</td></tr>
+      </tbody>
+    </table>
+
+    <hr class="section-rule-thin">
+    <p class="section-num">3. Design Process</p>
+    <h2 class="section-title">Research &amp; Iteration</h2>
+    <ul class="detail-list">
+      <li>Conducted user interviews with pediatric nurses and certified car-seat technicians to define requirements</li>
+      <li>Collaborated directly with Lurie Children's Hospital clinicians throughout prototyping and testing</li>
+      <li>Iterated through multiple prototype generations based on clinical feedback</li>
+      <li>Documented design rationale and testing results per medical device development standards</li>
+    </ul>
+
+  </div>
+  <div class="side-col">
+
+    <div class="side-section">
+      <p class="side-label">Status</p>
+      <p class="side-stat">Completed</p>
+      <p class="side-stat-label">Sept – Dec 2025</p>
+    </div>
+
+    <div class="side-section">
+      <p class="side-label">Clinical Partner</p>
+      <p style="font-family:'IM Fell English',serif; font-size:0.95rem; color:var(--ink); margin-bottom:0.2rem;">Lurie Children's Hospital</p>
+      <p class="side-stat-label">Chicago, IL · Pediatric orthopedics</p>
+    </div>
+
+    <div class="side-section">
+      <p class="side-label">Setting</p>
+      <p class="side-stat">OR</p>
+      <p class="side-stat-label">Designed for operating room use — sterility and ease-of-use constraints</p>
+    </div>
+
+    <div class="side-section">
+      <p class="side-label">Patient Population</p>
+      <p class="side-stat">Peds</p>
+      <p class="side-stat-label">Pediatric patients with highly variable sizing needs</p>
+    </div>
+
+    <div class="side-section">
+      <p class="side-label">Context</p>
+      <p style="font-family:'IM Fell English',serif; font-size:0.95rem; color:var(--ink); margin-bottom:0.2rem;">Segal Design Institute</p>
+      <p class="side-stat-label">Northwestern University · DTC 2025</p>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Sophia Bian</span>
+  <a href="projects.html">← Back to projects</a>
+</footer>
+</body>
+</html>
