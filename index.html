@@ -8,122 +8,125 @@
 <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper:   #fdfaf4;
-    --paper2:  #f5f1e8;
-    --ink:     #1a1a10;
-    --ink-mid: #4a4a38;
-    --ink-muted: #7a7860;
-    --ink-faint: #b0aa90;
-    --rule:    #2a2a1e;
-    --sage:    #3a5a3e;
-    --sage-mid:#5a7a5e;
-    --sage-light:#8aaa8e;
-    --sage-pale:#d4e2d6;
-    --accent:  #3a5a3e;
+    --paper:#fdfaf4; --paper2:#f5f1e8; --ink:#1a1a10; --ink-mid:#4a4a38;
+    --ink-muted:#7a7860; --ink-faint:#b0aa90; --rule:#2a2a1e;
+    --sage:#3a5a3e; --sage-mid:#5a7a5e; --sage-light:#8aaa8e; --sage-pale:#d4e2d6;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior:smooth; }
   body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville',serif; font-size:15px; line-height:1.7; }
 
-  /* ── MASTHEAD ── */
-  .masthead {
-    border-top:3px solid var(--rule);
-    border-bottom:1px solid var(--rule);
-    padding:0.5rem 5vw;
-    display:flex; justify-content:space-between; align-items:center;
-  }
+  /* MASTHEAD */
+  .masthead { border-top:3px solid var(--rule); border-bottom:1px solid var(--rule); padding:0.5rem 5vw; display:flex; justify-content:space-between; align-items:center; }
   .masthead-vol { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:500; letter-spacing:0.12em; color:var(--ink-muted); text-transform:uppercase; }
-  .masthead-logo { font-family:'IM Fell English',serif; font-size:1.5rem; color:var(--ink); text-align:center; letter-spacing:0.02em; }
+  .masthead-logo { font-family:'IM Fell English',serif; font-size:1.5rem; color:var(--ink); }
   .masthead-logo a { color:inherit; text-decoration:none; }
   .masthead-right { font-family:'DM Sans',sans-serif; font-size:0.62rem; color:var(--ink-muted); text-align:right; letter-spacing:0.06em; line-height:1.5; }
-  /* ── NAV ── */
-  nav {
-    border-bottom:2px solid var(--rule);
-    padding:0.45rem 5vw;
-    display:flex; justify-content:center; gap:0;
-  }
-  nav a {
-    font-family:'DM Sans',sans-serif; font-size:0.7rem; font-weight:600;
-    letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-muted);
-    text-decoration:none; padding:0.25rem 1.4rem;
-    border-right:1px solid #d0c8b0;
-    transition:color 0.2s;
-  }
+
+  /* NAV */
+  nav { border-bottom:2px solid var(--rule); padding:0.45rem 5vw; display:flex; justify-content:center; gap:0; }
+  nav a { font-family:'DM Sans',sans-serif; font-size:0.7rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-muted); text-decoration:none; padding:0.25rem 1.4rem; border-right:1px solid #d0c8b0; transition:color 0.2s; }
   nav a:first-child { border-left:1px solid #d0c8b0; }
   nav a:hover, nav a.active { color:var(--ink); }
 
-  /* ── HERO SECTION ── */
-  .hero { display:grid; grid-template-columns:3fr 2fr; border-bottom:1px solid #d0c8b0; }
-  .hero-main { padding:3rem 3rem 3rem 5vw; border-right:1px solid #d0c8b0; }
-  .hero-kicker { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:1.2rem; }
-  .hero-title { font-family:'IM Fell English',serif; font-size:3.2rem; line-height:1.08; color:var(--ink); margin-bottom:0.8rem; font-weight:400; }
-  .hero-title em { font-style:italic; color:var(--sage); }
-  .hero-rule { height:1px; background:var(--ink-faint); margin:1.2rem 0; }
-  .hero-abstract-label { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink-muted); margin-bottom:0.6rem; }
-  .hero-abstract { font-size:0.88rem; line-height:1.85; color:var(--ink-mid); }
-  .hero-abstract em { font-style:italic; color:var(--sage); }
-  .hero-links { display:flex; gap:1.5rem; margin-top:1.5rem; align-items:center; }
-  .hero-link-primary { font-family:'DM Sans',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--paper); background:var(--ink); padding:0.6rem 1.4rem; text-decoration:none; transition:background 0.2s; }
-  .hero-link-primary:hover { background:var(--sage); }
-  .hero-link-secondary { font-family:'DM Sans',sans-serif; font-size:0.72rem; font-weight:600; color:var(--sage); text-decoration:none; border-bottom:1px solid var(--sage-pale); padding-bottom:0.1rem; letter-spacing:0.06em; }
-  .hero-link-secondary:hover { border-color:var(--sage); }
+  /* ARTICLE TITLE BLOCK */
+  .title-block {
+    padding:2.8rem 10vw 2rem;
+    border-bottom:1px solid #d0c8b0;
+    text-align:center;
+  }
+  .title-block-kicker {
+    font-family:'DM Sans',sans-serif; font-size:0.6rem; font-weight:700;
+    letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint);
+    margin-bottom:1.4rem;
+  }
+  .article-title {
+    font-family:'IM Fell English',serif; font-style:italic;
+    font-size:clamp(2rem, 4vw, 3rem); line-height:1.12;
+    color:var(--ink); font-weight:400; margin-bottom:1.4rem;
+  }
+  .article-author {
+    font-family:'Libre Baskerville',serif; font-size:0.85rem; color:var(--ink-mid);
+    margin-bottom:0.2rem;
+  }
+  .article-affil {
+    font-family:'Libre Baskerville',serif; font-size:0.78rem;
+    font-style:italic; color:var(--ink-muted);
+  }
+  .title-rule-wrap { margin:1.6rem 0 0; }
+  .title-rule-double { border:none; border-top:3px double var(--ink-faint); }
 
-  .hero-sidebar { padding:2.5rem 3rem 2.5rem 2.5rem; background:var(--paper2); }
-  .sidebar-section { margin-bottom:2rem; padding-bottom:2rem; border-bottom:1px solid #d4ccb4; }
-  .sidebar-section:last-child { border-bottom:none; margin-bottom:0; }
-  .sidebar-label { font-family:'DM Sans',sans-serif; font-size:0.58rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.8rem; }
-  .sidebar-item { margin-bottom:0.8rem; }
-  .sidebar-item-title { font-family:'IM Fell English',serif; font-size:0.92rem; color:var(--ink); display:block; }
-  .sidebar-item-meta { font-family:'DM Sans',sans-serif; font-size:0.65rem; color:var(--ink-faint); margin-top:0.1rem; display:block; }
-  .sidebar-stat { display:flex; justify-content:space-between; align-items:baseline; padding:0.3rem 0; border-bottom:1px solid #e0d8c4; }
-  .sidebar-stat:last-child { border-bottom:none; }
-  .sidebar-stat-num { font-family:'IM Fell English',serif; font-size:1.3rem; color:var(--ink); }
-  .sidebar-stat-label { font-family:'DM Sans',sans-serif; font-size:0.62rem; color:var(--ink-muted); }
+  /* ARTICLE BODY — two columns */
+  .article-body {
+    display:grid; grid-template-columns:1fr 1fr;
+    border-bottom:2px solid var(--rule);
+  }
+  .col-left { padding:2.5rem 2.5rem 2.5rem 5vw; border-right:1px solid #d0c8b0; }
+  .col-right { padding:2.5rem 5vw 2.5rem 2.5rem; }
 
-  /* ── FEATURED PHOTO ── */
-  .hero-photo { width:100%; aspect-ratio:4/3; object-fit:cover; object-position:center; display:block; }
-  .hero-photo-placeholder { width:100%; aspect-ratio:4/3; background:linear-gradient(160deg,#8a9e7a,#4a6a50); display:flex; align-items:flex-end; padding:1rem; }
-  .hero-photo-caption { font-family:'Libre Baskerville',serif; font-size:0.65rem; font-style:italic; color:rgba(255,255,255,0.65); }
+  .section-num { font-family:'DM Sans',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink); margin-bottom:0.5rem; }
+  .body-p { font-size:0.88rem; color:var(--ink-mid); line-height:1.9; margin-bottom:1rem; }
+  .body-p em { font-style:italic; color:var(--sage); }
+  .section-gap { margin-top:2rem; }
 
-  /* ── KEYWORDS ── */
-  .keywords { padding:0.8rem 5vw; border-bottom:1px solid #d0c8b0; display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap; }
-  .kw-label { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-right:0.5rem; }
-  .kw { font-family:'DM Sans',sans-serif; font-size:0.65rem; color:var(--ink-muted); padding:0.15rem 0.6rem; border:1px solid #d0c8b0; }
+  /* FIGURE */
+  .figure { margin:1.5rem 0; }
+  .figure img { width:100%; display:block; object-fit:cover; aspect-ratio:4/3; }
+  .fig-caption { font-family:'Libre Baskerville',serif; font-size:0.62rem; font-style:italic; color:var(--ink-faint); margin-top:0.4rem; }
 
-  /* ── SELECTED WORKS STRIP ── */
-  .works-strip { padding:2.5rem 5vw; border-bottom:2px solid var(--rule); }
-  .strip-header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:1.5rem; }
-  .strip-title { font-family:'IM Fell English',serif; font-size:1.1rem; color:var(--ink); }
-  .strip-all { font-family:'DM Sans',sans-serif; font-size:0.65rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--sage); text-decoration:none; }
+  /* PROJECT ENTRIES (right column) */
+  .proj-entry { margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px solid #e8e0cc; }
+  .proj-entry:last-of-type { border-bottom:none; }
+  .proj-title { font-family:'Libre Baskerville',serif; font-size:0.88rem; color:var(--ink-mid); line-height:1.85; }
+  .proj-title em { font-style:italic; color:var(--sage); }
+  .proj-ref { font-family:'DM Sans',sans-serif; font-size:0.62rem; color:var(--ink-faint); margin-top:0.2rem; }
+
+  /* LINKS ROW */
+  .links-row { display:flex; gap:1rem; margin-top:1.8rem; align-items:center; flex-wrap:wrap; }
+  .btn-primary { font-family:'DM Sans',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--paper); background:var(--ink); padding:0.6rem 1.3rem; text-decoration:none; transition:background 0.2s; }
+  .btn-primary:hover { background:var(--sage); }
+  .btn-secondary { font-family:'DM Sans',sans-serif; font-size:0.68rem; font-weight:600; color:var(--sage); text-decoration:none; letter-spacing:0.06em; border-bottom:1px solid var(--sage-pale); padding-bottom:0.1rem; }
+  .btn-secondary:hover { border-color:var(--sage); }
+
+  /* POSITIONS block (right col) */
+  .position-item { margin-bottom:1rem; }
+  .position-title { font-family:'IM Fell English',serif; font-size:0.95rem; color:var(--ink); }
+  .position-meta { font-family:'DM Sans',sans-serif; font-size:0.62rem; color:var(--ink-faint); margin-top:0.05rem; }
+
+  /* SELECTED WORKS STRIP */
+  .works-strip { padding:2rem 5vw; border-bottom:1px solid #d0c8b0; }
+  .strip-header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:1.2rem; }
+  .strip-title { font-family:'IM Fell English',serif; font-size:1.05rem; color:var(--ink); }
+  .strip-all { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--sage); text-decoration:none; }
   .works-row { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:#d0c8b0; }
-  .work-item { background:var(--paper); padding:1.2rem; cursor:pointer; transition:background 0.15s; }
+  .work-item { background:var(--paper); padding:1rem; cursor:pointer; transition:background 0.15s; }
   .work-item:hover { background:var(--paper2); }
-  .work-fig { font-family:'DM Sans',sans-serif; font-size:0.58rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.5rem; }
-  .work-visual { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; margin-bottom:0.7rem; background:linear-gradient(135deg,#c8d4c0,#a8baa0); }
-  .work-title { font-family:'IM Fell English',serif; font-size:0.92rem; color:var(--ink); margin-bottom:0.2rem; line-height:1.3; }
-  .work-meta { font-family:'DM Sans',sans-serif; font-size:0.62rem; color:var(--ink-faint); }
+  .work-fig { font-family:'DM Sans',sans-serif; font-size:0.58rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.4rem; }
+  .work-visual { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; margin-bottom:0.6rem; }
+  .work-title { font-family:'IM Fell English',serif; font-size:0.9rem; color:var(--ink); margin-bottom:0.2rem; line-height:1.3; }
+  .work-meta { font-family:'DM Sans',sans-serif; font-size:0.6rem; color:var(--ink-faint); }
 
-  /* ── CONTACT / FOOTER ── */
-  .contact { background:var(--ink); padding:3.5rem 5vw; display:grid; grid-template-columns:1fr 1fr; gap:4rem; border-top:3px solid var(--rule); }
-  .contact-left {}
+  /* CONTACT */
+  .contact { background:var(--ink); padding:3rem 5vw; display:grid; grid-template-columns:1fr 1fr; gap:4rem; border-top:3px solid var(--rule); }
   .contact-section-label { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:1rem; }
-  .contact-title { font-family:'IM Fell English',serif; font-size:2rem; color:#f0ede5; font-style:italic; line-height:1.2; margin-bottom:1rem; }
-  .contact-sub { font-size:0.82rem; color:rgba(255,255,255,0.5); line-height:1.7; }
+  .contact-title { font-family:'IM Fell English',serif; font-size:1.8rem; color:#f0ede5; font-style:italic; line-height:1.2; margin-bottom:0.8rem; }
+  .contact-sub { font-size:0.8rem; color:rgba(255,255,255,0.45); line-height:1.7; }
   .contact-right { display:flex; flex-direction:column; justify-content:center; gap:0.8rem; }
   .contact-email { font-family:'IM Fell English',serif; font-size:1rem; color:#f0ede5; text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.15); padding-bottom:0.3rem; }
   .contact-links { display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.5rem; }
-  .contact-link { font-family:'DM Sans',sans-serif; font-size:0.7rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.4); text-decoration:none; transition:color 0.2s; }
+  .contact-link { font-family:'DM Sans',sans-serif; font-size:0.68rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.4); text-decoration:none; transition:color 0.2s; }
   .contact-link:hover { color:var(--sage-light); }
 
   footer { background:var(--ink); border-top:1px solid rgba(255,255,255,0.08); padding:1rem 5vw; display:flex; justify-content:space-between; font-family:'DM Sans',sans-serif; font-size:0.62rem; color:rgba(255,255,255,0.25); letter-spacing:0.06em; }
   footer a { color:rgba(255,255,255,0.25); text-decoration:none; }
 
   @media (max-width:768px) {
-    .hero { grid-template-columns:1fr; }
-    .hero-sidebar { border-top:1px solid #d0c8b0; }
+    .article-body { grid-template-columns:1fr; }
+    .col-left { border-right:none; border-bottom:1px solid #d0c8b0; }
     .works-row { grid-template-columns:1fr; }
     .contact { grid-template-columns:1fr; gap:2rem; }
     nav a { padding:0.25rem 0.8rem; }
+    .title-block { padding:2rem 5vw 1.5rem; }
   }
 </style>
 </head>
@@ -147,76 +150,92 @@
   <a href="#contact">Contact</a>
 </nav>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-main">
-    <p class="hero-kicker">Electrical Engineering · Northwestern University · Class of 2029</p>
-    <h1 class="hero-title">Hello —<br>I'm <em>Sophia Bian.</em></h1>
-    <div class="hero-rule"></div>
-    <p class="hero-abstract-label">Abstract</p>
-    <p class="hero-abstract">
-      Rising second-year student in the Department of Electrical Engineering at Northwestern University.
-      Research and project interests include <em>embedded systems</em>, PCB design, data acquisition,
-      and the aerospace industry. Current work spans the Northwestern Formula SAE data acquisition
-      subteam and undergraduate research in bioelectronics at the Querrey Simpson Institute.
-      Outside the lab, I am a flutist with seven years of orchestral performance experience.
+<!-- TITLE BLOCK -->
+<div class="title-block">
+  <p class="title-block-kicker">Portfolio Review · Vol. 1, No. 1 · Northwestern University · 2026</p>
+  <h1 class="article-title">On the Work of Sophia Bian:<br>Engineering, Music, and the Space Between</h1>
+  <p class="article-author">Sophia Bian</p>
+  <p class="article-affil">Department of Electrical Engineering, Northwestern University, Evanston, IL</p>
+  <div class="title-rule-wrap"><hr class="title-rule-double"></div>
+</div>
+
+<!-- ARTICLE BODY -->
+<div class="article-body">
+
+  <!-- LEFT COLUMN -->
+  <div class="col-left">
+
+    <p class="section-num">Abstract</p>
+    <p class="body-p">
+      This portfolio presents the work of a rising second-year Electrical Engineering
+      student at Northwestern University. Areas of focus include <em>embedded systems</em>, PCB
+      design using Altium Designer, data acquisition, and bioelectronics research.
     </p>
-    <div class="hero-links">
-      <a href="projects.html" class="hero-link-primary">View Projects</a>
-      <a href="resume.html" class="hero-link-secondary">Résumé →</a>
-    </div>
-  </div>
-  <div class="hero-sidebar">
-    <div style="margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px solid #d4ccb4;">
-      <img src="hero.JPG" alt="Sophia Bian"
-           class="hero-photo"
-           onerror="this.style.display='none'">
-      <p style="font-family:'Libre Baskerville',serif; font-size:0.62rem; font-style:italic; color:var(--ink-faint); margin-top:0.4rem;">
-        Fig. 1 — Sophia Bian, flutist &amp; engineer
+
+    <div class="section-gap">
+      <p class="section-num">1. Introduction</p>
+      <p class="body-p">
+        The author is a member of the Northwestern Formula Racing data acquisition
+        subteam and an undergraduate research assistant at the Querrey Simpson Institute for
+        Bioelectronics. Outside the lab, she is a flutist with seven years of orchestral
+        performance experience, including principal flute and piccolo with the San Francisco
+        Symphony Youth Orchestra.
       </p>
     </div>
 
-    <div class="sidebar-section">
-      <p class="sidebar-label">Current Positions</p>
-      <div class="sidebar-item">
-        <span class="sidebar-item-title">Formula SAE — DAQ</span>
-        <span class="sidebar-item-meta">Northwestern Formula Racing · 2025–present</span>
-      </div>
-      <div class="sidebar-item">
-        <span class="sidebar-item-title">Undergraduate Researcher</span>
-        <span class="sidebar-item-meta">Querrey Simpson Institute for Bioelectronics · 2026–present</span>
-      </div>
+    <!-- FIGURE -->
+    <div class="figure">
+      <img src="hero.JPG" alt="Sophia Bian, flutist & engineer"
+           onerror="this.style.display='none'">
+      <p class="fig-caption">Fig. 1 — Sophia Bian, flutist &amp; engineer</p>
     </div>
 
-    <div class="sidebar-section">
-      <p class="sidebar-label">By the numbers</p>
-      <div class="sidebar-stat">
-        <span class="sidebar-stat-num">5</span>
-        <span class="sidebar-stat-label">Engineering projects</span>
-      </div>
-      <div class="sidebar-stat">
-        <span class="sidebar-stat-num">7+</span>
-        <span class="sidebar-stat-label">Years flute performance</span>
-      </div>
-      <div class="sidebar-stat">
-        <span class="sidebar-stat-num">2×</span>
-        <span class="sidebar-stat-label">FIRST World Championship</span>
-      </div>
+    <div class="links-row">
+      <a href="projects.html" class="btn-primary">View Projects</a>
+      <a href="resume.html" class="btn-secondary">Résumé →</a>
     </div>
+
   </div>
-</div>
 
-<!-- KEYWORDS -->
-<div class="keywords">
-  <span class="kw-label">Keywords</span>
-  <span class="kw">Embedded Systems</span>
-  <span class="kw">PCB Design</span>
-  <span class="kw">C++</span>
-  <span class="kw">Altium Designer</span>
-  <span class="kw">Data Acquisition</span>
-  <span class="kw">Bioelectronics</span>
-  <span class="kw">Aerospace</span>
-  <span class="kw">SOLIDWORKS</span>
+  <!-- RIGHT COLUMN -->
+  <div class="col-right">
+
+    <p class="section-num">2. Selected Projects</p>
+    <div class="proj-entry">
+      <p class="proj-title"><em>Formula SAE Data Acquisition:</em> C++ dashboard firmware and Altium PCB design for the Northwestern Formula Racing DAQ subteam [1].</p>
+      <p class="proj-ref"><a href="projects.html" style="color:var(--sage); text-decoration:none;">→ Read more</a></p>
+    </div>
+    <div class="proj-entry">
+      <p class="proj-title"><em>Wireless Fluorimeter:</em> Flexible PCB prototype with Bluetooth for continuous fluorescence monitoring in biomedical applications [2].</p>
+      <p class="proj-ref"><a href="projects.html" style="color:var(--sage); text-decoration:none;">→ Read more</a></p>
+    </div>
+    <div class="proj-entry">
+      <p class="proj-title"><em>FIRST Robotics Team #1868:</em> Electrical team lead; qualified for FIRST World Championship twice [3].</p>
+      <p class="proj-ref"><a href="projects.html" style="color:var(--sage); text-decoration:none;">→ Read more</a></p>
+    </div>
+
+    <div class="section-gap">
+      <p class="section-num">3. Music</p>
+      <p class="body-p">
+        Former principal flute and piccolo, San Francisco Symphony Youth Orchestra, 2023–2025.
+        John Philip Sousa Award recipient. Current studies with John Thorne, Bienen School of Music.
+      </p>
+      <p class="proj-ref" style="margin-top:0.2rem;"><a href="music.html" style="color:var(--sage); text-decoration:none;">→ Music page</a></p>
+    </div>
+
+    <div class="section-gap">
+      <p class="section-num">4. Current Positions</p>
+      <div class="position-item">
+        <p class="position-title">Formula SAE — DAQ</p>
+        <p class="position-meta">Northwestern Formula Racing · 2025–present</p>
+      </div>
+      <div class="position-item">
+        <p class="position-title">Undergraduate Researcher</p>
+        <p class="position-meta">Querrey Simpson Institute for Bioelectronics · 2026–present</p>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <!-- SELECTED WORKS -->
@@ -228,19 +247,22 @@
   <div class="works-row">
     <div class="work-item" onclick="window.location='projects.html'">
       <p class="work-fig">Plate I</p>
-      <img src="formula.jpg" alt="Formula SAE" class="work-visual" onerror="this.style.background='linear-gradient(135deg,#c8d4c0,#8aaa7a)'; this.style.display='block'">
+      <img src="formula.jpg" alt="Formula SAE" class="work-visual"
+           onerror="this.style.background='linear-gradient(135deg,#c8d4c0,#8aaa7a)'; this.removeAttribute('src')">
       <p class="work-title">Northwestern Formula SAE: Data Acquisition</p>
       <p class="work-meta">C++ · Altium Designer · PCB · 2025–present</p>
     </div>
     <div class="work-item" onclick="window.location='projects.html'">
       <p class="work-fig">Plate II</p>
-      <img src="fluorimeter.jpg" alt="Fluorimeter" class="work-visual" onerror="this.style.background='linear-gradient(135deg,#d4c8b0,#b0a080)'; this.style.display='block'">
+      <img src="fluorimeter.jpg" alt="Fluorimeter" class="work-visual"
+           onerror="this.style.background='linear-gradient(135deg,#d4c8b0,#b0a080)'; this.removeAttribute('src')">
       <p class="work-title">Wireless Fluorimeter Development</p>
       <p class="work-meta">Bioelectronics · Flexible PCB · Bluetooth · 2026–present</p>
     </div>
     <div class="work-item" onclick="window.location='projects.html'">
       <p class="work-fig">Plate III</p>
-      <img src="robotics.jpg" alt="FIRST Robotics" class="work-visual" onerror="this.style.background='linear-gradient(135deg,#c0c8d4,#8090b0)'; this.style.display='block'">
+      <img src="robotics.jpg" alt="FIRST Robotics" class="work-visual"
+           onerror="this.style.background='linear-gradient(135deg,#c0c8d4,#8090b0)'; this.removeAttribute('src')">
       <p class="work-title">FIRST Robotics Team #1868</p>
       <p class="work-meta">Electrical Lead · CAD · Fabrication · 2022–25</p>
     </div>
@@ -249,7 +271,7 @@
 
 <!-- CONTACT -->
 <section class="contact" id="contact">
-  <div class="contact-left">
+  <div>
     <p class="contact-section-label">Correspondence</p>
     <h2 class="contact-title">Thanks for stopping by.</h2>
     <p class="contact-sub">I'm always happy to discuss projects, research, or opportunities. Feel free to reach out.</p>
