@@ -53,6 +53,8 @@
   .detail-list { list-style:none; display:flex; flex-direction:column; gap:0.6rem; margin:0.5rem 0 1rem; }
   .detail-list li { font-size:0.86rem; color:var(--ink-muted); padding-left:1.4rem; position:relative; line-height:1.75; }
   .detail-list li::before { content:'—'; position:absolute; left:0; color:var(--ink-faint); }
+  .report-wrap { background:#fff; border:1px solid #d0c8b0; box-shadow:0 2px 16px rgba(0,0,0,0.06); margin-top:0.8rem; }
+  .report-wrap iframe { width:100%; height:75vh; display:block; border:none; }
   .side-section { margin-bottom:1.8rem; padding-bottom:1.8rem; border-bottom:1px solid #d4ccb4; }
   .side-section:last-child { border-bottom:none; margin-bottom:0; }
   .side-label { font-family:'DM Sans',sans-serif; font-size:0.58rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.8rem; }
@@ -152,6 +154,14 @@
       <li>Documented design rationale and testing results per medical device development standards</li>
     </ul>
 
+    <hr class="section-rule-thin">
+    <p class="section-num">4. Final Report</p>
+    <h2 class="section-title">Design Documentation</h2>
+    <p class="body-p">The complete final report — including problem framing, design process, engineering specifications, and clinical evaluation — is embedded below. To add your report, save it as <code style="font-family:monospace; background:var(--paper2); color:var(--sage); padding:0.1rem 0.35rem; font-size:0.8rem;">spicalign-report.pdf</code> in the portfolio-journal folder.</p>
+    <div class="report-wrap">
+      <iframe src="spicalign-report.pdf" title="SPICALIGN Final Report"></iframe>
+    </div>
+
   </div>
   <div class="side-col">
 
@@ -183,6 +193,11 @@
       <p class="side-label">Context</p>
       <p style="font-family:'IM Fell English',serif; font-size:0.95rem; color:var(--ink); margin-bottom:0.2rem;">Segal Design Institute</p>
       <p class="side-stat-label">Northwestern University · DTC 2025</p>
+    </div>
+
+    <div class="side-section">
+      <p class="side-label">Final Report</p>
+      <p class="side-stat-label">Save as <code style="font-family:monospace; background:var(--paper2); color:var(--sage); padding:0.1rem 0.3rem; font-size:0.75rem;">spicalign-report.pdf</code> in the portfolio folder to display below.</p>
     </div>
 
   </div>
