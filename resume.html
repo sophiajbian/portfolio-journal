@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Résumé — Sophia Bian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:#fdfaf4; --paper2:#f5f1e8; --ink:#1a1a10; --ink-mid:#4a4a38;
+    --ink-muted:#7a7860; --ink-faint:#b0aa90; --rule:#2a2a1e;
+    --sage:#3a5a3e; --sage-light:#8aaa8e; --sage-pale:#d4e2d6;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville',serif; font-size:15px; line-height:1.7; }
+  .masthead { border-top:3px solid var(--rule); border-bottom:1px solid var(--rule); padding:0.5rem 5vw; display:flex; justify-content:space-between; align-items:center; }
+  .masthead-vol { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:500; letter-spacing:0.12em; color:var(--ink-muted); text-transform:uppercase; }
+  .masthead-logo { font-family:'IM Fell English',serif; font-size:1.5rem; color:var(--ink); }
+  .masthead-logo a { color:inherit; text-decoration:none; }
+  .masthead-right { font-family:'DM Sans',sans-serif; font-size:0.62rem; color:var(--ink-muted); text-align:right; letter-spacing:0.06em; line-height:1.5; }
+  nav { border-bottom:2px solid var(--rule); padding:0.45rem 5vw; display:flex; justify-content:center; gap:0; }
+  nav a { font-family:'DM Sans',sans-serif; font-size:0.7rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-muted); text-decoration:none; padding:0.25rem 1.4rem; border-right:1px solid #d0c8b0; transition:color 0.2s; }
+  nav a:first-child { border-left:1px solid #d0c8b0; }
+  nav a:hover, nav a.active { color:var(--ink); }
+
+  /* RESUME HEADER */
+  .resume-header { padding:2.5rem 5vw; border-bottom:1px solid #d0c8b0; display:flex; justify-content:space-between; align-items:center; gap:2rem; }
+  .resume-header-left { display:flex; gap:2rem; align-items:center; }
+  .headshot { width:100px; height:100px; border-radius:50%; object-fit:cover; object-position:center 20%; border:2px solid #d0c8b0; }
+  .resume-name-block {}
+  .resume-kicker { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.4rem; }
+  .resume-name { font-family:'IM Fell English',serif; font-size:2rem; color:var(--ink); font-weight:400; }
+  .resume-name em { font-style:italic; color:var(--sage); }
+  .resume-affil { font-family:'DM Sans',sans-serif; font-size:0.72rem; color:var(--ink-muted); margin-top:0.2rem; }
+  .download-btn { font-family:'DM Sans',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--paper); background:var(--ink); padding:0.65rem 1.4rem; text-decoration:none; transition:background 0.2s; white-space:nowrap; }
+  .download-btn:hover { background:var(--sage); }
+
+  /* TABS */
+  .tab-bar { border-bottom:1px solid #d0c8b0; padding:0 5vw; display:flex; }
+  .tab-btn { font-family:'DM Sans',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); background:none; border:none; border-bottom:2px solid transparent; padding:0.8rem 1.5rem; cursor:pointer; margin-bottom:-1px; transition:all 0.2s; }
+  .tab-btn:hover { color:var(--ink); }
+  .tab-btn.active { color:var(--ink); border-bottom-color:var(--ink); }
+
+  /* PDF PANE */
+  .pdf-pane { display:none; padding:2.5rem 5vw; }
+  .pdf-pane.active { display:block; }
+  .pdf-wrap { background:#fff; border:1px solid #d0c8b0; box-shadow:0 2px 16px rgba(0,0,0,0.06); }
+  .pdf-wrap iframe { width:100%; height:82vh; display:block; border:none; }
+  .pdf-missing { padding:5rem 2rem; text-align:center; color:var(--ink-faint); }
+  .pdf-missing h3 { font-family:'IM Fell English',serif; font-size:1.2rem; color:var(--ink-muted); margin-bottom:0.5rem; font-style:italic; }
+  .pdf-missing p { font-size:0.82rem; line-height:1.7; }
+  .pdf-missing code { font-family:monospace; background:var(--paper2); color:var(--sage); padding:0.15rem 0.4rem; font-size:0.78rem; }
+
+  footer { background:var(--ink); border-top:1px solid rgba(255,255,255,0.08); padding:1rem 5vw; display:flex; justify-content:space-between; font-family:'DM Sans',sans-serif; font-size:0.62rem; color:rgba(255,255,255,0.25); letter-spacing:0.06em; }
+  footer a { color:rgba(255,255,255,0.25); text-decoration:none; }
+  @media (max-width:600px) {
+    .resume-header { flex-direction:column; align-items:flex-start; }
+    nav a { padding:0.25rem 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <span class="masthead-vol">Portfolio · Vol. I</span>
+  <span class="masthead-logo"><a href="index.html">Sophia Bian</a></span>
+  <span class="masthead-right">Northwestern University<br>Electrical Engineering</span>
+</div>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="projects.html">Projects</a>
+  <a href="music.html">Music</a>
+  <a href="resume.html" class="active">Résumé</a>
+  <a href="index.html#contact">Contact</a>
+</nav>
+
+<div class="resume-header">
+  <div class="resume-header-left">
+    <img src="headshot.JPG" alt="Sophia Bian" class="headshot"
+         onerror="this.style.display='none'">
+    <div class="resume-name-block">
+      <p class="resume-kicker">Curriculum Vitae</p>
+      <h1 class="resume-name">Sophia Bian — <em>Résumé</em></h1>
+      <p class="resume-affil">Northwestern University · B.S. Electrical Engineering · Class of 2029</p>
+    </div>
+  </div>
+  <a href="resume-engineering.pdf" download class="download-btn">↓ Download Engineering CV</a>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('engineering', this)">Engineering</button>
+  <button class="tab-btn" onclick="switchTab('music', this)">Music</button>
+</div>
+
+<div class="pdf-pane active" id="pane-engineering">
+  <div class="pdf-wrap">
+    <iframe src="resume-engineering.pdf" title="Engineering Résumé"></iframe>
+  </div>
+  <div class="pdf-missing" id="missing-engineering" style="display:none">
+    <h3>Document not found</h3>
+    <p>Save your engineering résumé as <code>resume-engineering.pdf</code> in the portfolio folder.</p>
+  </div>
+</div>
+
+<div class="pdf-pane" id="pane-music">
+  <div class="pdf-wrap">
+    <iframe src="resume-music.pdf" title="Music Résumé"></iframe>
+  </div>
+  <div class="pdf-missing" id="missing-music" style="display:none">
+    <h3>Document not found</h3>
+    <p>Save your music résumé as <code>resume-music.pdf</code> in the portfolio folder.</p>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Sophia Bian</span>
+  <a href="index.html">← Return to home</a>
+</footer>
+
+<script>
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.pdf-pane').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('pane-' + name).classList.add('active');
+  }
+  window.addEventListener('load', () => {
+    ['engineering','music'].forEach(t => {
+      const iframe = document.querySelector(`#pane-${t} iframe`);
+      if (!iframe) return;
+      iframe.addEventListener('error', () => showMissing(iframe, t));
+      setTimeout(() => {
+        try { if (iframe.contentDocument?.body?.innerText.includes('404')) showMissing(iframe, t); } catch(e) {}
+      }, 1000);
+    });
+  });
+  function showMissing(iframe, type) {
+    if (iframe?.parentElement) iframe.parentElement.style.display = 'none';
+    const msg = document.getElementById('missing-' + type);
+    if (msg) msg.style.display = 'block';
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — Sophia Bian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:#fdfaf4; --paper2:#f5f1e8; --ink:#1a1a10; --ink-mid:#4a4a38;
+    --ink-muted:#7a7860; --ink-faint:#b0aa90; --rule:#2a2a1e;
+    --sage:#3a5a3e; --sage-mid:#5a7a5e; --sage-light:#8aaa8e; --sage-pale:#d4e2d6;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville',serif; font-size:15px; line-height:1.7; }
+
+  .masthead { border-top:3px solid var(--rule); border-bottom:1px solid var(--rule); padding:0.5rem 5vw; display:flex; justify-content:space-between; align-items:center; }
+  .masthead-vol { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:500; letter-spacing:0.12em; color:var(--ink-muted); text-transform:uppercase; }
+  .masthead-logo { font-family:'IM Fell English',serif; font-size:1.5rem; color:var(--ink); }
+  .masthead-logo a { color:inherit; text-decoration:none; }
+  .masthead-right { font-family:'DM Sans',sans-serif; font-size:0.62rem; color:var(--ink-muted); text-align:right; letter-spacing:0.06em; line-height:1.5; }
+  nav { border-bottom:2px solid var(--rule); padding:0.45rem 5vw; display:flex; justify-content:center; gap:0; }
+  nav a { font-family:'DM Sans',sans-serif; font-size:0.7rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-muted); text-decoration:none; padding:0.25rem 1.4rem; border-right:1px solid #d0c8b0; transition:color 0.2s; }
+  nav a:first-child { border-left:1px solid #d0c8b0; }
+  nav a:hover, nav a.active { color:var(--ink); }
+
+  /* PAGE HEADER */
+  .page-header { padding:2.5rem 5vw 2rem; border-bottom:1px solid #d0c8b0; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:end; }
+  .page-header-left {}
+  .page-kicker { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.8rem; }
+  .page-title { font-family:'IM Fell English',serif; font-size:2.8rem; font-weight:400; line-height:1.08; color:var(--ink); }
+  .page-title em { font-style:italic; color:var(--sage); }
+  .page-header-right {}
+  .page-intro { font-size:0.85rem; color:var(--ink-muted); line-height:1.85; font-style:italic; }
+  .page-intro strong { font-style:normal; color:var(--ink-mid); font-weight:400; }
+
+  /* EXHIBITION INTRO BAR */
+  .exhibition-bar {
+    padding:0.8rem 5vw; background:var(--paper2);
+    border-bottom:1px solid #d0c8b0;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .exhibition-bar-title { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink-faint); }
+  .exhibition-bar-count { font-family:'Libre Baskerville',serif; font-size:0.78rem; color:var(--ink-muted); font-style:italic; }
+
+  /* ── THE EXHIBITION PLATES ── */
+
+  /* Large featured plate */
+  .plate-featured {
+    display:grid; grid-template-columns:1fr 1fr;
+    border-bottom:1px solid #d0c8b0;
+    cursor:pointer; transition:background 0.2s;
+  }
+  .plate-featured:hover { background:var(--paper2); }
+  .plate-photo-wrap { position:relative; overflow:hidden; }
+  .plate-photo { width:100%; height:100%; object-fit:cover; display:block; min-height:340px; transition:transform 0.5s; }
+  .plate-featured:hover .plate-photo { transform:scale(1.02); }
+  .plate-photo-placeholder { width:100%; min-height:340px; background:linear-gradient(160deg,#8a9e7a,#4a6a50); }
+  .plate-body { padding:3rem 4rem 3rem 3.5rem; display:flex; flex-direction:column; justify-content:center; border-left:1px solid #d0c8b0; }
+  .plate-number { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:1.2rem; }
+  .plate-status { display:inline-block; font-family:'DM Sans',sans-serif; font-size:0.58rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; border:1px solid var(--sage); color:var(--sage); padding:0.2rem 0.6rem; margin-bottom:1.2rem; }
+  .plate-status.complete { border-color:var(--ink-faint); color:var(--ink-faint); }
+  .plate-title { font-family:'IM Fell English',serif; font-size:1.9rem; line-height:1.15; color:var(--ink); margin-bottom:0.5rem; font-weight:400; }
+  .plate-title em { font-style:italic; color:var(--sage); }
+  .plate-org { font-family:'DM Sans',sans-serif; font-size:0.7rem; color:var(--ink-faint); letter-spacing:0.06em; margin-bottom:1rem; }
+  .plate-rule { height:1px; background:#d0c8b0; margin-bottom:1rem; }
+  .plate-desc { font-size:0.82rem; color:var(--ink-muted); line-height:1.85; margin-bottom:1.2rem; }
+  .plate-materials { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.4rem; }
+  .plate-tags { display:flex; gap:0.4rem; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .plate-tag { font-family:'DM Sans',sans-serif; font-size:0.62rem; color:var(--ink-muted); padding:0.15rem 0.55rem; border:1px solid #d0c8b0; }
+  .plate-footer { display:flex; align-items:center; justify-content:space-between; padding-top:1rem; border-top:1px solid #d0c8b0; }
+  .plate-date { font-family:'Libre Baskerville',serif; font-size:0.72rem; font-style:italic; color:var(--ink-faint); }
+  .plate-cta { font-family:'DM Sans',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--sage); text-decoration:none; }
+  .plate-cta-gh { font-family:'DM Sans',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--sage); text-decoration:none; }
+
+  /* Standard plate — photo top, text below */
+  .plate {
+    border-bottom:1px solid #d0c8b0; cursor:pointer; transition:background 0.2s;
+    display:grid; grid-template-columns:1fr 1fr;
+  }
+  .plate:hover { background:var(--paper2); }
+
+  /* Small plates grid — 2 or 3 across */
+  .plates-grid { display:grid; grid-template-columns:1fr 1fr; border-bottom:1px solid #d0c8b0; }
+  .plate-small {
+    padding:2rem 2.5rem; border-right:1px solid #d0c8b0; cursor:pointer;
+    transition:background 0.2s; display:flex; flex-direction:column;
+  }
+  .plate-small:nth-child(even) { border-right:none; }
+  .plate-small:hover { background:var(--paper2); }
+  .plate-small-photo { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; margin-bottom:1.2rem; }
+  .plate-small-placeholder { width:100%; aspect-ratio:16/9; margin-bottom:1.2rem; display:flex; align-items:center; justify-content:center; font-size:2rem; }
+  .plate-small .plate-number { margin-bottom:0.6rem; }
+  .plate-small .plate-title { font-size:1.2rem; margin-bottom:0.4rem; }
+  .plate-small .plate-org { margin-bottom:0.6rem; }
+  .plate-small .plate-desc { font-size:0.78rem; margin-bottom:0.8rem; flex:1; }
+  .plate-small .plate-tags { margin-bottom:0.8rem; }
+  .plate-small .plate-footer { margin-top:auto; }
+
+  /* Placeholder plate */
+  .plate-placeholder {
+    padding:3rem 2.5rem; border-right:1px solid #d0c8b0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; opacity:0.45; min-height:200px;
+  }
+  .plate-placeholder-icon { font-family:'IM Fell English',serif; font-size:2.5rem; color:var(--ink-faint); margin-bottom:0.8rem; }
+  .plate-placeholder-text { font-family:'Libre Baskerville',serif; font-size:0.8rem; font-style:italic; color:var(--ink-faint); }
+
+  footer { background:var(--ink); border-top:1px solid rgba(255,255,255,0.08); padding:1rem 5vw; display:flex; justify-content:space-between; font-family:'DM Sans',sans-serif; font-size:0.62rem; color:rgba(255,255,255,0.25); letter-spacing:0.06em; }
+  footer a { color:rgba(255,255,255,0.25); text-decoration:none; }
+
+  @media (max-width:768px) {
+    .page-header { grid-template-columns:1fr; gap:1.5rem; }
+    .plate-featured { grid-template-columns:1fr; }
+    .plate-body { border-left:none; border-top:1px solid #d0c8b0; padding:2rem 5vw; }
+    .plates-grid { grid-template-columns:1fr; }
+    .plate-small { border-right:none; border-bottom:1px solid #d0c8b0; }
+    nav a { padding:0.25rem 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <span class="masthead-vol">Portfolio · Vol. I</span>
+  <span class="masthead-logo"><a href="index.html">Sophia Bian</a></span>
+  <span class="masthead-right">Northwestern University<br>Electrical Engineering</span>
+</div>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="projects.html" class="active">Projects</a>
+  <a href="music.html">Music</a>
+  <a href="resume.html">Résumé</a>
+  <a href="index.html#contact">Contact</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-left">
+    <p class="page-kicker">Selected Works · 2022–2026</p>
+    <h1 class="page-title">Think.<br><em>Tinker.</em><br>Test.</h1>
+  </div>
+  <div class="page-header-right">
+    <p class="page-intro">
+      A collection of engineering projects spanning embedded systems, PCB design, medical devices, and robotics.
+      Each entry is presented as a numbered plate — click any work to read the full documentation.
+    </p>
+  </div>
+</div>
+
+<div class="exhibition-bar">
+  <span class="exhibition-bar-title">Exhibition · Five Plates</span>
+  <span class="exhibition-bar-count">Arranged chronologically, most recent first</span>
+</div>
+
+<!-- ── PLATE I: FORMULA SAE (featured, full-width) ── -->
+<div class="plate-featured" onclick="window.location='project-formula.html'">
+  <div class="plate-photo-wrap">
+    <img src="formula.jpg" alt="Northwestern Formula SAE" class="plate-photo"
+         onerror="this.classList.add('plate-photo-placeholder'); this.style.display='block'">
+  </div>
+  <div class="plate-body">
+    <p class="plate-number">Plate I · Featured Work</p>
+    <span class="plate-status">In Progress</span>
+    <h2 class="plate-title">Northwestern Formula SAE:<br><em>Data Acquisition</em></h2>
+    <p class="plate-org">Northwestern Formula Racing · Evanston, IL</p>
+    <div class="plate-rule"></div>
+    <p class="plate-desc">
+      Member of the Data Acquisition subteam responsible for the systems that collect, display,
+      and interpret real-time vehicle telemetry during testing and competition. Work spans
+      C++ firmware development and custom PCB design in Altium Designer.
+    </p>
+    <p class="plate-materials">Materials</p>
+    <div class="plate-tags">
+      <span class="plate-tag">C++</span>
+      <span class="plate-tag">Altium Designer</span>
+      <span class="plate-tag">PCB Design</span>
+      <span class="plate-tag">Embedded Systems</span>
+      <span class="plate-tag">Git</span>
+    </div>
+    <div class="plate-footer">
+      <span class="plate-date">September 2025 – present</span>
+      <div style="display:flex;gap:1rem;align-items:center;">
+        <a href="https://github.com/NU-Formula-Racing/daq-dash-26" target="_blank" class="plate-cta-gh" onclick="event.stopPropagation()">↗ GitHub</a>
+        <span class="plate-cta">Read documentation →</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PLATES II & III: FLUORIMETER + ROBOTICS ── -->
+<div class="plates-grid">
+  <div class="plate-small" onclick="window.location='project-fluorimeter.html'">
+    <p class="plate-number">Plate II</p>
+    <img src="fluorimeter.jpg" alt="Wireless Fluorimeter" class="plate-small-photo"
+         onerror="this.style.background='linear-gradient(135deg,#d4c8b0,#a09070)'; this.style.minHeight='140px'; this.removeAttribute('src')">
+    <span class="plate-status">In Progress</span>
+    <h2 class="plate-title">Wireless<br><em>Fluorimeter</em> Development</h2>
+    <p class="plate-org">Querrey Simpson Institute for Bioelectronics · Northwestern</p>
+    <div class="plate-rule" style="margin:0.8rem 0;"></div>
+    <p class="plate-desc">
+      Undergraduate research on a portable wireless fluorimeter for continuous fluorescence
+      monitoring in biomedical applications. Flexible PCB assembly, Bluetooth validation,
+      iterative hardware testing.
+    </p>
+    <div class="plate-tags">
+      <span class="plate-tag">Flexible PCB</span>
+      <span class="plate-tag">Bluetooth</span>
+      <span class="plate-tag">Bioelectronics</span>
+      <span class="plate-tag">SMD Soldering</span>
+    </div>
+    <div class="plate-footer">
+      <span class="plate-date">2026 – present</span>
+      <span class="plate-cta">Read →</span>
+    </div>
+  </div>
+
+  <div class="plate-small" onclick="window.location='project-robotics.html'">
+    <p class="plate-number">Plate III</p>
+    <img src="robotics.jpg" alt="FIRST Robotics" class="plate-small-photo"
+         onerror="this.style.background='linear-gradient(135deg,#c0c8d4,#8090a8)'; this.style.minHeight='140px'; this.removeAttribute('src')">
+    <span class="plate-status complete">Completed</span>
+    <h2 class="plate-title">FIRST Robotics<br><em>Team #1868</em></h2>
+    <p class="plate-org">NASA Ames Research Center · Mountain View, CA</p>
+    <div class="plate-rule" style="margin:0.8rem 0;"></div>
+    <p class="plate-desc">
+      Three years on a competitive FIRST Robotics team based at NASA Ames. Progressed to
+      electrical subteam lead — full robot wiring architecture, CAD, fabrication.
+      Qualified to FIRST World Championships twice.
+    </p>
+    <div class="plate-tags">
+      <span class="plate-tag">Electrical Systems</span>
+      <span class="plate-tag">SOLIDWORKS</span>
+      <span class="plate-tag">CAD</span>
+      <span class="plate-tag">Fabrication</span>
+    </div>
+    <div class="plate-footer">
+      <span class="plate-date">August 2022 – February 2025</span>
+      <span class="plate-cta">Read →</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── PLATES IV & V: RESONANCE + SPICALIGN ── -->
+<div class="plates-grid">
+  <div class="plate-small" onclick="window.location='project-resonance.html'">
+    <p class="plate-number">Plate IV</p>
+    <div class="plate-small-placeholder" style="background:linear-gradient(135deg,#2b2438,#4a3b63);">🎻</div>
+    <span class="plate-status complete">Completed</span>
+    <h2 class="plate-title">Resonance —<br><em>Violin Orientation</em> System</h2>
+    <p class="plate-org">Segal Design Institute · Northwestern University</p>
+    <div class="plate-rule" style="margin:0.8rem 0;"></div>
+    <p class="plate-desc">
+      Embedded sensing system for real-time violin orientation monitoring using a 9-DoF IMU,
+      Adafruit Feather RP2040, 3D-printed housing, and a browser-based dashboard.
+      Full user-centered design process.
+    </p>
+    <div class="plate-tags">
+      <span class="plate-tag">RP2040</span>
+      <span class="plate-tag">9-DoF IMU</span>
+      <span class="plate-tag">3D Printing</span>
+      <span class="plate-tag">Web App</span>
+    </div>
+    <div class="plate-footer">
+      <span class="plate-date">2025</span>
+      <span class="plate-cta">Read →</span>
+    </div>
+  </div>
+
+  <div class="plate-small" onclick="window.location='project-spicalign.html'">
+    <p class="plate-number">Plate V</p>
+    <div class="plate-small-placeholder" style="background:linear-gradient(135deg,#2a1e3a,#3d2952);">🏥</div>
+    <span class="plate-status complete">Completed</span>
+    <h2 class="plate-title">SPICALIGN —<br><em>Pediatric</em> Medical Device</h2>
+    <p class="plate-org">Segal Design Institute · Lurie Children's Hospital</p>
+    <div class="plate-rule" style="margin:0.8rem 0;"></div>
+    <p class="plate-desc">
+      Intraoperative device to correctly position pediatric hip spica casts for car-seat
+      compatibility. Built with a linear actuator, servo motors, telescoping arms,
+      and foot-pedal control for sterile OR use.
+    </p>
+    <div class="plate-tags">
+      <span class="plate-tag">Mechanical Design</span>
+      <span class="plate-tag">Medical Device</span>
+      <span class="plate-tag">Prototyping</span>
+      <span class="plate-tag">User Research</span>
+    </div>
+    <div class="plate-footer">
+      <span class="plate-date">September – December 2025</span>
+      <span class="plate-cta">Read →</span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Sophia Bian</span>
+  <a href="index.html">← Return to home</a>
+</footer>
+
+</body>
+</html>

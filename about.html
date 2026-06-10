@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Sophia Bian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:#fdfaf4; --paper2:#f5f1e8; --ink:#1a1a10; --ink-mid:#4a4a38;
+    --ink-muted:#7a7860; --ink-faint:#b0aa90; --rule:#2a2a1e;
+    --sage:#3a5a3e; --sage-light:#8aaa8e; --sage-pale:#d4e2d6;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville',serif; font-size:15px; line-height:1.7; }
+  .masthead { border-top:3px solid var(--rule); border-bottom:1px solid var(--rule); padding:0.5rem 5vw; display:flex; justify-content:space-between; align-items:center; }
+  .masthead-vol { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:500; letter-spacing:0.12em; color:var(--ink-muted); text-transform:uppercase; }
+  .masthead-logo { font-family:'IM Fell English',serif; font-size:1.5rem; color:var(--ink); }
+  .masthead-logo a { color:inherit; text-decoration:none; }
+  .masthead-right { font-family:'DM Sans',sans-serif; font-size:0.62rem; color:var(--ink-muted); text-align:right; letter-spacing:0.06em; line-height:1.5; }
+  nav { border-bottom:2px solid var(--rule); padding:0.45rem 5vw; display:flex; justify-content:center; gap:0; }
+  nav a { font-family:'DM Sans',sans-serif; font-size:0.7rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-muted); text-decoration:none; padding:0.25rem 1.4rem; border-right:1px solid #d0c8b0; transition:color 0.2s; }
+  nav a:first-child { border-left:1px solid #d0c8b0; }
+  nav a:hover, nav a.active { color:var(--ink); }
+
+  /* TWO-COLUMN LAYOUT */
+  .page-body { display:grid; grid-template-columns:2fr 1fr; border-bottom:2px solid var(--rule); }
+  .main-col { padding:3rem 3.5rem 3rem 5vw; border-right:1px solid #d0c8b0; }
+  .side-col { padding:2.5rem 5vw 2.5rem 2.5rem; background:var(--paper2); }
+
+  /* SECTION STYLES */
+  .section-rule { border:none; border-top:2px solid var(--rule); margin-bottom:0.5rem; }
+  .section-rule-thin { border:none; border-top:1px solid #d0c8b0; margin:2rem 0 1.5rem; }
+  .section-head { font-family:'DM Sans',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-muted); margin-bottom:1.5rem; }
+  .section-title { font-family:'IM Fell English',serif; font-size:1.6rem; font-weight:400; color:var(--ink); margin-bottom:1rem; }
+  .body-p { font-size:0.88rem; color:var(--ink-mid); line-height:1.85; margin-bottom:0.9rem; }
+  .body-p em { color:var(--sage); font-style:italic; }
+
+  /* EDUCATION */
+  .edu-item { margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px solid #e0d8c4; }
+  .edu-item:last-child { border-bottom:none; }
+  .edu-school { font-family:'IM Fell English',serif; font-size:1.05rem; color:var(--ink); }
+  .edu-degree { font-family:'DM Sans',sans-serif; font-size:0.72rem; font-weight:600; color:var(--sage); margin:0.2rem 0; }
+  .edu-meta { font-family:'DM Sans',sans-serif; font-size:0.65rem; color:var(--ink-faint); }
+  .edu-badge { display:inline-block; font-family:'DM Sans',sans-serif; font-size:0.6rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--sage); color:var(--sage); padding:0.15rem 0.55rem; margin:0.4rem 0 0.5rem; }
+  .edu-courses { font-family:'DM Sans',sans-serif; font-size:0.65rem; color:var(--ink-muted); line-height:1.7; }
+
+  /* SKILLS */
+  .skill-group { margin-bottom:1.2rem; }
+  .skill-group-label { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.5rem; }
+  .skill-list { font-family:'DM Sans',sans-serif; font-size:0.72rem; color:var(--ink-muted); line-height:1.8; }
+
+  /* SIDEBAR */
+  .side-section { margin-bottom:2rem; padding-bottom:2rem; border-bottom:1px solid #d4ccb4; }
+  .side-section:last-child { border-bottom:none; margin-bottom:0; }
+  .side-label { font-family:'DM Sans',sans-serif; font-size:0.58rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.8rem; }
+  .side-p { font-size:0.78rem; color:var(--ink-muted); line-height:1.75; font-style:italic; }
+  .side-item { margin-bottom:0.8rem; }
+  .side-item-title { font-family:'IM Fell English',serif; font-size:0.9rem; color:var(--ink); display:block; }
+  .side-item-meta { font-family:'DM Sans',sans-serif; font-size:0.62rem; color:var(--ink-faint); display:block; margin-top:0.1rem; }
+
+  footer { background:var(--ink); border-top:1px solid rgba(255,255,255,0.08); padding:1rem 5vw; display:flex; justify-content:space-between; font-family:'DM Sans',sans-serif; font-size:0.62rem; color:rgba(255,255,255,0.25); letter-spacing:0.06em; }
+  footer a { color:rgba(255,255,255,0.25); text-decoration:none; }
+  @media (max-width:768px) {
+    .page-body { grid-template-columns:1fr; }
+    .side-col { border-top:1px solid #d0c8b0; }
+    nav a { padding:0.25rem 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <span class="masthead-vol">Portfolio · Vol. I</span>
+  <span class="masthead-logo"><a href="index.html">Sophia Bian</a></span>
+  <span class="masthead-right">Northwestern University<br>Electrical Engineering</span>
+</div>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="about.html" class="active">About</a>
+  <a href="projects.html">Projects</a>
+  <a href="music.html">Music</a>
+  <a href="resume.html">Résumé</a>
+  <a href="index.html#contact">Contact</a>
+</nav>
+
+<div class="page-body">
+  <!-- MAIN COLUMN -->
+  <div class="main-col">
+
+    <hr class="section-rule">
+    <p class="section-head">Biography</p>
+    <h2 class="section-title">Engineer, Musician, Explorer</h2>
+    <p class="body-p">
+      I am a rising second-year student at Northwestern University pursuing a
+      <em>Bachelor of Science in Electrical Engineering</em>. My interests lie at the
+      intersection of hardware and software — embedded systems, PCB design, data acquisition,
+      and the aerospace industry.
+    </p>
+    <p class="body-p">
+      Outside the classroom, I am a member of <em>Northwestern Formula Racing</em>,
+      where I work on data acquisition systems for the team's Formula SAE race car.
+      I also conduct undergraduate research at the Querrey Simpson Institute for Bioelectronics,
+      contributing to the development of a portable wireless fluorimeter.
+    </p>
+    <p class="body-p">
+      I hold the <em>Engineering Dean's Honors distinction</em> and bring a collaborative,
+      cross-disciplinary approach to every project — shaped in part by years of orchestral
+      performance as a flutist.
+    </p>
+
+    <hr class="section-rule-thin">
+    <p class="section-head">Education</p>
+
+    <div class="edu-item">
+      <p class="edu-school">Northwestern University</p>
+      <p class="edu-degree">B.S. Electrical Engineering</p>
+      <p class="edu-meta">Evanston, IL · Expected June 2029</p>
+      <span class="edu-badge">Engineering Dean's Honors List</span>
+      <p class="edu-courses">
+        Computer Engineering Design · Introduction to Computer Engineering ·
+        Introduction to Electrical Engineering · Object-Oriented Programming ·
+        Fundamentals of Computer Science · Physics: Mechanics ·
+        Multi-Variable Calculus · Linear Algebra · Design Thinking &amp; Communication
+      </p>
+    </div>
+
+    <div class="edu-item">
+      <p class="edu-school">Henry M. Gunn High School</p>
+      <p class="edu-degree">High School Diploma</p>
+      <p class="edu-meta">Palo Alto, CA · June 2025</p>
+      <p class="edu-courses">
+        Principles of Engineering Design &amp; Robotics · Digital Electronics ·
+        Physics Mechanics · Physics E&amp;M · Calculus · Linear Algebra
+      </p>
+    </div>
+
+    <hr class="section-rule-thin">
+    <p class="section-head">Technical Skills</p>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+      <div>
+        <div class="skill-group">
+          <p class="skill-group-label">Programming</p>
+          <p class="skill-list">Python · C++ · MATLAB · Git</p>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-label">PCB & EDA</p>
+          <p class="skill-list">Altium Designer · NI Multisim · Soldering</p>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-label">Mechanical</p>
+          <p class="skill-list">SOLIDWORKS · Fusion 360 · OnShape · Machining</p>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group">
+          <p class="skill-group-label">Languages</p>
+          <p class="skill-list">English (native) · Chinese (intermediate) · Japanese (elementary)</p>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-label">Other</p>
+          <p class="skill-list">Technical documentation · Project management · Cross-team collaboration</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="side-col">
+    <div class="side-section">
+      <p class="side-label">Author Note</p>
+      <p class="side-p">
+        "I enjoy building things that connect hardware with software — systems that respond
+        to the physical world in real time."
+      </p>
+    </div>
+
+    <div class="side-section">
+      <p class="side-label">Current Affiliations</p>
+      <div class="side-item">
+        <span class="side-item-title">Formula SAE — DAQ</span>
+        <span class="side-item-meta">Northwestern Formula Racing · 2025–present</span>
+      </div>
+      <div class="side-item">
+        <span class="side-item-title">Undergraduate Researcher</span>
+        <span class="side-item-meta">Querrey Simpson Institute · 2026–present</span>
+      </div>
+    </div>
+
+    <div class="side-section">
+      <p class="side-label">Selected Recognition</p>
+      <div class="side-item">
+        <span class="side-item-title">Dean's Honors List</span>
+        <span class="side-item-meta">Northwestern Engineering · 2025</span>
+      </div>
+      <div class="side-item">
+        <span class="side-item-title">John Philip Sousa Award</span>
+        <span class="side-item-meta">Gunn Wind Ensemble · 2025</span>
+      </div>
+      <div class="side-item">
+        <span class="side-item-title">FIRST World Championship</span>
+        <span class="side-item-meta">Qualifier × 2 · Team #1868</span>
+      </div>
+    </div>
+
+    <div class="side-section">
+      <p class="side-label">Contact</p>
+      <p style="font-family:'DM Sans',sans-serif; font-size:0.72rem; color:var(--ink-muted); line-height:1.7;">
+        sophiabian2029@u.northwestern.edu<br>
+        Northwestern University<br>
+        Evanston, IL 60208
+      </p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Sophia Bian</span>
+  <a href="index.html">← Return to home</a>
+</footer>
+</body>
+</html>
