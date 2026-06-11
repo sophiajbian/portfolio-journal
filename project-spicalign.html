@@ -35,7 +35,8 @@
   .article-desc { font-size:0.9rem; color:var(--ink-muted); line-height:1.85; max-width:680px; margin-bottom:1.5rem; }
   .tag-row { display:flex; gap:0.4rem; flex-wrap:wrap; padding-bottom:1.8rem; }
   .tag { font-family:'DM Sans',sans-serif; font-size:0.62rem; color:var(--ink-muted); padding:0.18rem 0.55rem; border:1px solid #d0c8b0; }
-  .photo-placeholder { width:100%; height:300px; background:linear-gradient(150deg,#2a1f35,#3d2850); display:flex; align-items:center; justify-content:center; border-top:1px solid #d0c8b0; }
+  .hero-photo { width:100%; max-height:480px; object-fit:cover; object-position:center; display:block; border-top:1px solid #d0c8b0; }
+  .photo-placeholder { width:100%; height:240px; background:linear-gradient(150deg,#2a1f35,#3d2850); display:flex; align-items:center; justify-content:center; border-top:1px solid #d0c8b0; }
   .photo-placeholder p { font-family:'Libre Baskerville',serif; font-size:0.72rem; font-style:italic; color:rgba(255,255,255,0.35); }
   .article-body { display:grid; grid-template-columns:2fr 1fr; border-bottom:2px solid var(--rule); }
   .main-col { padding:2.5rem 3rem 2.5rem 5vw; border-right:1px solid #d0c8b0; }
@@ -53,13 +54,15 @@
   .detail-list { list-style:none; display:flex; flex-direction:column; gap:0.6rem; margin:0.5rem 0 1rem; }
   .detail-list li { font-size:0.86rem; color:var(--ink-muted); padding-left:1.4rem; position:relative; line-height:1.75; }
   .detail-list li::before { content:'—'; position:absolute; left:0; color:var(--ink-faint); }
-  .report-wrap { background:#fff; border:1px solid #d0c8b0; box-shadow:0 2px 16px rgba(0,0,0,0.06); margin-top:0.8rem; }
-  .report-wrap iframe { width:100%; height:75vh; display:block; border:none; }
   .side-section { margin-bottom:1.8rem; padding-bottom:1.8rem; border-bottom:1px solid #d4ccb4; }
   .side-section:last-child { border-bottom:none; margin-bottom:0; }
   .side-label { font-family:'DM Sans',sans-serif; font-size:0.58rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.8rem; }
   .side-stat { font-family:'IM Fell English',serif; font-size:1.5rem; color:var(--ink); line-height:1; margin-bottom:0.15rem; }
   .side-stat-label { font-family:'DM Sans',sans-serif; font-size:0.65rem; color:var(--ink-muted); }
+  .side-link { display:block; font-family:'DM Sans',sans-serif; font-size:0.72rem; font-weight:600; color:var(--sage); text-decoration:none; border-bottom:1px solid var(--sage-pale); padding-bottom:0.1rem; margin-bottom:0.5rem; transition:border-color 0.2s; }
+  .side-link:hover { border-color:var(--sage); }
+  .report-wrap { background:#fff; border:1px solid #d0c8b0; box-shadow:0 2px 16px rgba(0,0,0,0.06); margin-top:0.8rem; }
+  .report-wrap iframe { width:100%; height:80vh; display:block; border:none; }
   footer { background:var(--ink); border-top:1px solid rgba(255,255,255,0.08); padding:1rem 5vw; display:flex; justify-content:space-between; font-family:'DM Sans',sans-serif; font-size:0.62rem; color:rgba(255,255,255,0.25); letter-spacing:0.06em; }
   footer a { color:rgba(255,255,255,0.25); text-decoration:none; }
   @media (max-width:768px) { .article-body { grid-template-columns:1fr; } nav a { padding:0.25rem 0.8rem; } }
@@ -91,21 +94,23 @@
     <span>Sept – Dec 2025</span>
     <span class="status-badge">Completed</span>
   </div>
-  <h1 class="article-title">SPICALIGN —<br><em>Pediatric</em> Medical Device</h1>
+  <h1 class="article-title">SPICALIGN —<br><em>Pediatric</em> Hip Spica Cast Positioning Guide</h1>
   <p class="article-desc">
-    An intraoperative positioning device designed to correctly orient pediatric hip spica casts
-    for car-seat compatibility — developed in collaboration with Lurie Children's Hospital
-    at the Segal Design Institute.
+    An intraoperative device that helps surgeons position children's hip spica casts for car-seat
+    compatibility — developed with Dr. Michelle Macy at Lurie Children's Hospital through
+    Northwestern's Design Thinking and Communication program.
   </p>
   <div class="tag-row">
     <span class="tag">Mechanical Design</span>
     <span class="tag">Medical Device</span>
     <span class="tag">Prototyping</span>
     <span class="tag">User Research</span>
-    <span class="tag">Lurie Children's Hospital</span>
+    <span class="tag">Arduino</span>
+    <span class="tag">Servo Control</span>
+    <span class="tag">Linear Actuator</span>
   </div>
   <div class="photo-placeholder">
-    <p>Photo coming soon — drop spicalign.jpg into the portfolio-journal folder</p>
+    <p>Drop spicalign.jpg into the portfolio-journal folder to add a photo</p>
   </div>
 </div>
 
@@ -116,50 +121,67 @@
     <p class="section-num">1. The Problem</p>
     <h2 class="section-title">Background</h2>
     <p class="body-p">
-      When young children receive hip spica casts for conditions like hip dysplasia or femur fractures,
-      the cast must be carefully positioned to allow safe use of a car seat — a critical safety requirement
-      for discharge. Currently, surgeons and nurses estimate this positioning by eye, which can lead to
-      misalignment and the need for <em>cast revisions</em>.
+      Hip dysplasia in young children (ages 0–5) is often treated with hip spica casts that immobilize
+      both legs at a fixed angle. These casts prevent children from fitting safely into standard car seats —
+      a critical safety requirement before hospital discharge. Specialized spica-compatible car seats can
+      cost several thousand dollars, and many families resort to improvised, unapproved solutions.
     </p>
     <p class="body-p">
-      SPICALIGN provides a mechanical solution: a device that holds the cast in the correct orientation
-      during the casting process itself, removing the guesswork from an already demanding procedure.
+      Our project partner, <em>Dr. Michelle Macy</em> (MD, MS), a pediatric emergency medicine physician at
+      Lurie Children's Hospital, emphasized the need for a cost-effective intraoperative solution.
+      Currently, surgeons estimate cast positioning by eye — SPICALIGN eliminates that guesswork by
+      providing a physical reference guide during the casting process itself.
     </p>
 
     <hr class="section-rule-thin">
     <p class="section-num">2. The Device</p>
-    <h2 class="section-title">Mechanical System</h2>
+    <h2 class="section-title">How It Works</h2>
     <p class="body-p">
-      The device uses a compact actuation system to position and hold a child's legs at the correct
-      angles during casting. Key requirements included adjustability across patient sizes,
-      ease of use in an OR environment, and sterility compatibility.
+      SPICALIGN attaches to the pole of the spica cast table underneath the patient, staying out of the
+      operating area. While the cast dries, medical personnel operate it via <em>foot pedal commands</em>:
+      a linear actuator raises the device upward, and servo-controlled arms rotate from a stowed
+      position (under the table) to an active position (above the table). The telescoping arms are
+      then manually extended to display the maximum hip width allowed by a standard car seat,
+      giving surgeons a live spatial reference as they position the cast.
     </p>
     <table class="comp-table">
       <thead><tr><th>Component</th><th>Role</th></tr></thead>
       <tbody>
-        <tr><td>Linear Actuator</td><td>Primary height/position adjustment for accommodating different patient sizes</td></tr>
-        <tr><td>Servo Motors</td><td>Controlled angular positioning of leg supports</td></tr>
-        <tr><td>Telescoping Arms</td><td>Adjustable reach to accommodate varied patient anatomy</td></tr>
-        <tr><td>Foot-Pedal Control</td><td>Hands-free operation for surgeons working in a sterile field</td></tr>
+        <tr><td>Linear Actuator</td><td>Translates device vertically 12–18 inches via foot pedal; stores unit below table level during surgery</td></tr>
+        <tr><td>Continuous Rotation Servos (×2)</td><td>Rotate telescoping arms from stowed (under table) to active (above table) position; selected over DC motors for high torque at low speed and full range of motion</td></tr>
+        <tr><td>Telescoping Arms</td><td>Manually extend to display the maximum leg-spread width for a standard car seat; removable for sterilization between surgeries</td></tr>
+        <tr><td>Foot Pedal Controls</td><td>Hands-free operation for surgeons working in a sterile field — one pedal raises/lowers, one controls arm rotation</td></tr>
+        <tr><td>Spica Table Mount</td><td>Triangular bracket attaches to the standard spica cast table pole; future revision to use a bolt-tightened clamp</td></tr>
       </tbody>
     </table>
 
     <hr class="section-rule-thin">
     <p class="section-num">3. Design Process</p>
     <h2 class="section-title">Research &amp; Iteration</h2>
+    <p class="body-p">
+      Our team conducted interviews with <em>orthopedic surgeons, pediatric OR nurses, certified
+      car-seat technicians, and a Ford Design Center workshop specialist</em> to define requirements.
+      Key constraints were compactibility (must not obstruct the operating field), sterility compatibility,
+      and adjustability across patient age groups and car seat categories.
+    </p>
     <ul class="detail-list">
-      <li>Conducted user interviews with pediatric nurses and certified car-seat technicians to define requirements</li>
-      <li>Collaborated directly with Lurie Children's Hospital clinicians throughout prototyping and testing</li>
-      <li>Iterated through multiple prototype generations based on clinical feedback</li>
-      <li>Documented design rationale and testing results per medical device development standards</li>
+      <li>Interviewed orthopedic surgeons, pediatric nurses, car-seat technicians, and design specialists to define OR workflow constraints and car seat geometry requirements</li>
+      <li>Evaluated linear actuator vs. custom pulley/crank mechanisms — selected pre-built actuator given timeline and sterilization requirements</li>
+      <li>Evaluated DC motors vs. standard servos vs. continuous rotation servos — selected continuous rotation for full range of motion and high torque at low speed</li>
+      <li>Evaluated PVC pipe, aluminum, and telescoping pointers for arms — selected pointer for budget and weight compliance with servo load limits</li>
+      <li>Built and tested multiple prototype iterations; conducted user testing with clinical observers</li>
+      <li>Documented design rationale, bill of materials, and testing protocols in a formal final design report</li>
     </ul>
 
     <hr class="section-rule-thin">
     <p class="section-num">4. Final Report</p>
     <h2 class="section-title">Design Documentation</h2>
-    <p class="body-p">The complete final report — including problem framing, design process, engineering specifications, and clinical evaluation — is embedded below. To add your report, save it as <code style="font-family:monospace; background:var(--paper2); color:var(--sage); padding:0.1rem 0.35rem; font-size:0.8rem;">spicalign-report.pdf</code> in the portfolio-journal folder.</p>
+    <p class="body-p">
+      The complete final report — including problem framing, user research, engineering specifications,
+      component rationale, and clinical evaluation — is embedded below.
+    </p>
     <div class="report-wrap">
-      <iframe src="spicalign-report.pdf" title="SPICALIGN Final Report"></iframe>
+      <iframe src="spicalign-report.pdf" title="SPICALIGN Final Design Report"></iframe>
     </div>
 
   </div>
@@ -168,36 +190,35 @@
     <div class="side-section">
       <p class="side-label">Status</p>
       <p class="side-stat">Completed</p>
-      <p class="side-stat-label">Sept – Dec 2025</p>
+      <p class="side-stat-label">Dec 2025 · DTC Section 4, Team 3</p>
     </div>
 
     <div class="side-section">
       <p class="side-label">Clinical Partner</p>
-      <p style="font-family:'IM Fell English',serif; font-size:0.95rem; color:var(--ink); margin-bottom:0.2rem;">Lurie Children's Hospital</p>
-      <p class="side-stat-label">Chicago, IL · Pediatric orthopedics</p>
+      <p style="font-family:'IM Fell English',serif; font-size:0.95rem; color:var(--ink); margin-bottom:0.2rem;">Dr. Michelle Macy</p>
+      <p class="side-stat-label">MD, MS · Pediatric Emergency Medicine<br>Ann &amp; Robert H. Lurie Children's Hospital</p>
     </div>
 
     <div class="side-section">
-      <p class="side-label">Setting</p>
-      <p class="side-stat">OR</p>
-      <p class="side-stat-label">Designed for operating room use — sterility and ease-of-use constraints</p>
+      <p class="side-label">Team</p>
+      <p class="side-stat-label" style="line-height:2;">Aaron Butikofer<br>Alek Branovacki<br>Emily Righi<br>Sophia Bian</p>
     </div>
 
     <div class="side-section">
-      <p class="side-label">Patient Population</p>
-      <p class="side-stat">Peds</p>
-      <p class="side-stat-label">Pediatric patients with highly variable sizing needs</p>
+      <p class="side-label">Key Requirements</p>
+      <p class="side-stat-label" style="line-height:2;">Compactibility · Sterility compatibility · Adjustable for age groups · Foot-pedal operation · Non-obstructive to OR workflow</p>
     </div>
 
     <div class="side-section">
       <p class="side-label">Context</p>
       <p style="font-family:'IM Fell English',serif; font-size:0.95rem; color:var(--ink); margin-bottom:0.2rem;">Segal Design Institute</p>
-      <p class="side-stat-label">Northwestern University · DTC 2025</p>
+      <p class="side-stat-label">Design Thinking &amp; Communication<br>Northwestern University · Fall 2025</p>
     </div>
 
     <div class="side-section">
       <p class="side-label">Final Report</p>
-      <p class="side-stat-label">Save as <code style="font-family:monospace; background:var(--paper2); color:var(--sage); padding:0.1rem 0.3rem; font-size:0.75rem;">spicalign-report.pdf</code> in the portfolio folder to display below.</p>
+      <a href="spicalign-report.pdf" target="_blank" class="side-link">Download PDF ↗</a>
+      <p class="side-stat-label">68 pages · Dec 6, 2025</p>
     </div>
 
   </div>

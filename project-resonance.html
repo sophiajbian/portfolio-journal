@@ -35,7 +35,8 @@
   .article-desc { font-size:0.9rem; color:var(--ink-muted); line-height:1.85; max-width:680px; margin-bottom:1.5rem; }
   .tag-row { display:flex; gap:0.4rem; flex-wrap:wrap; padding-bottom:1.8rem; }
   .tag { font-family:'DM Sans',sans-serif; font-size:0.62rem; color:var(--ink-muted); padding:0.18rem 0.55rem; border:1px solid #d0c8b0; }
-  .photo-placeholder { width:100%; height:300px; background:linear-gradient(150deg,#3a3348,#5a4a78); display:flex; align-items:center; justify-content:center; border-top:1px solid #d0c8b0; }
+  .hero-photo { width:100%; max-height:480px; object-fit:cover; object-position:center; display:block; border-top:1px solid #d0c8b0; }
+  .photo-placeholder { width:100%; height:240px; background:linear-gradient(150deg,#3a3348,#5a4a78); display:flex; align-items:center; justify-content:center; border-top:1px solid #d0c8b0; }
   .photo-placeholder p { font-family:'Libre Baskerville',serif; font-size:0.72rem; font-style:italic; color:rgba(255,255,255,0.35); }
   .article-body { display:grid; grid-template-columns:2fr 1fr; border-bottom:2px solid var(--rule); }
   .main-col { padding:2.5rem 3rem 2.5rem 5vw; border-right:1px solid #d0c8b0; }
@@ -58,6 +59,10 @@
   .side-label { font-family:'DM Sans',sans-serif; font-size:0.58rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.8rem; }
   .side-stat { font-family:'IM Fell English',serif; font-size:1.5rem; color:var(--ink); line-height:1; margin-bottom:0.15rem; }
   .side-stat-label { font-family:'DM Sans',sans-serif; font-size:0.65rem; color:var(--ink-muted); }
+  .side-link { display:block; font-family:'DM Sans',sans-serif; font-size:0.72rem; font-weight:600; color:var(--sage); text-decoration:none; border-bottom:1px solid var(--sage-pale); padding-bottom:0.1rem; margin-bottom:0.5rem; transition:border-color 0.2s; }
+  .side-link:hover { border-color:var(--sage); }
+  .report-wrap { background:#fff; border:1px solid #d0c8b0; box-shadow:0 2px 16px rgba(0,0,0,0.06); margin-top:0.8rem; }
+  .report-wrap iframe { width:100%; height:80vh; display:block; border:none; }
   footer { background:var(--ink); border-top:1px solid rgba(255,255,255,0.08); padding:1rem 5vw; display:flex; justify-content:space-between; font-family:'DM Sans',sans-serif; font-size:0.62rem; color:rgba(255,255,255,0.25); letter-spacing:0.06em; }
   footer a { color:rgba(255,255,255,0.25); text-decoration:none; }
   @media (max-width:768px) { .article-body { grid-template-columns:1fr; } nav a { padding:0.25rem 0.8rem; } }
@@ -86,25 +91,26 @@
 
 <div class="article-header">
   <div class="article-kicker">
-    <span>2025</span>
+    <span>Jan – June 2026</span>
     <span class="status-badge">Completed</span>
   </div>
-  <h1 class="article-title">Resonance —<br>Violin <em>Orientation</em> Monitoring System</h1>
+  <h1 class="article-title">Resonance —<br>Violin <em>Posture Monitoring</em> System</h1>
   <p class="article-desc">
-    An embedded sensing system that monitors violin orientation in real time —
-    combining an IMU, microcontroller, 3D-printed housing, and browser-based dashboard
-    to support musicians in developing proper technique.
+    A shoulder-rest attachment that tracks violin orientation in real time using a 9-DoF IMU and
+    streams data to a browser-based companion app — helping violinists observe postural drift
+    during practice without interrupting their playing.
   </p>
   <div class="tag-row">
-    <span class="tag">Embedded</span>
+    <span class="tag">Embedded Systems</span>
     <span class="tag">IMU / Sensors</span>
     <span class="tag">RP2040</span>
     <span class="tag">3D Printing</span>
     <span class="tag">Web App</span>
-    <span class="tag">User Testing</span>
+    <span class="tag">WebSerial API</span>
+    <span class="tag">User Research</span>
   </div>
   <div class="photo-placeholder">
-    <p>Photo coming soon — drop resonance.jpg into the portfolio-journal folder</p>
+    <p>Drop resonance.jpg into the portfolio-journal folder to add a photo</p>
   </div>
 </div>
 
@@ -112,58 +118,71 @@
   <div class="main-col">
 
     <hr class="section-rule">
-    <p class="section-num">1. The Idea</p>
-    <h2 class="section-title">Overview</h2>
+    <p class="section-num">1. The Problem</p>
+    <h2 class="section-title">Background</h2>
     <p class="body-p">
-      Violin technique depends heavily on instrument orientation — the angle at which the violin
-      is held affects tone, bowing mechanics, and long-term posture. Resonance was designed to
-      give players real-time feedback on orientation using an <em>inertial measurement unit (IMU)</em>
-      mounted directly on the instrument.
+      Violinists hold their instruments between chin and shoulder for hours at a time — an asymmetric
+      position that can cause neck, jaw, shoulder, and back pain. From interviews with <em>27 violinists</em>,
+      we found that many believed their discomfort stemmed from poor playing posture, and that players
+      practicing 4+ hours per day reported higher pain levels than those who practiced less.
     </p>
     <p class="body-p">
-      Built as a project at the Segal Design Institute at Northwestern, the system went through
-      the full design cycle: user research, prototyping, hardware integration, firmware development,
-      and user testing with real musicians.
+      The challenge is that postural drift happens gradually: as a musician fatigues, their position
+      shifts in ways that are subtle enough to go unnoticed mid-practice. Resonance was built to
+      make these changes visible in real time — as a <em>posture-awareness tool</em>, not a medical device.
     </p>
 
     <hr class="section-rule-thin">
     <p class="section-num">2. Hardware</p>
-    <h2 class="section-title">The System</h2>
+    <h2 class="section-title">The Device</h2>
+    <p class="body-p">
+      The system consists of a compact, <em>3D-printed housing</em> (2.25 × 1.19 × 0.25 in, 18g total)
+      that attaches to the violin's shoulder rest via removable adhesive — no permanent modifications.
+      Inside sits an IMU and microcontroller, stacked to minimize footprint.
+    </p>
     <table class="comp-table">
-      <thead><tr><th>Component</th><th>Role</th></tr></thead>
+      <thead><tr><th>Component</th><th>Details</th></tr></thead>
       <tbody>
-        <tr><td>Adafruit Feather RP2040</td><td>Main microcontroller — reads IMU data and handles wireless communication</td></tr>
-        <tr><td>9-DoF IMU</td><td>Tracks orientation across 3 axes in real time (accelerometer + gyroscope + magnetometer)</td></tr>
-        <tr><td>3D-Printed Housing</td><td>Custom enclosure designed to mount on standard violin shoulder rests non-destructively</td></tr>
-        <tr><td>Browser Dashboard</td><td>Web-based interface visualizing live orientation data for players and instructors</td></tr>
+        <tr><td>MCU</td><td>Adafruit Feather RP2040 — 2.0 × 0.9 × 0.28 in, includes rechargeable battery for extended sessions</td></tr>
+        <tr><td>IMU</td><td>Adafruit LSM6DSOX + LIS3MDL 9-DoF — accelerometer, gyroscope, and magnetometer; magnetometer prevents gyroscope drift accumulation over long sessions</td></tr>
+        <tr><td>Housing</td><td>Custom 3D-printed enclosure; 18g with all components; attaches via removable adhesive strip compatible with any shoulder rest</td></tr>
+        <tr><td>Connection</td><td>USB-C to host computer; streams at ~100 Hz; pitch, roll, yaw + linear acceleration + angular velocity per packet</td></tr>
       </tbody>
     </table>
+    <p class="body-p">
+      Multiple housing iterations were designed and tested for fit, stability, and component placement.
+      The magnetometer was specifically chosen to correct for gyroscope drift that would accumulate
+      over a multi-hour practice session.
+    </p>
 
     <hr class="section-rule-thin">
-    <p class="section-num">3. Software &amp; Design Process</p>
-    <h2 class="section-title">The Dashboard</h2>
+    <p class="section-num">3. Software &amp; Interface</p>
+    <h2 class="section-title">Companion Web App</h2>
     <p class="body-p">
-      Orientation data from the IMU is streamed to a browser-based dashboard that visualizes the
-      violin's position in real time. The interface was designed with musicians in mind — intuitive
-      enough to use mid-practice without technical overhead.
+      The browser reads the sensor stream directly via the <em>WebSerial API</em> — no install, driver,
+      or background service required. Opening the page and plugging in the device is the entire setup.
+      At the start of each session, the player holds their playing position for a few seconds to set a
+      neutral reference; all subsequent measurements are compared against that reference.
     </p>
     <ul class="detail-list">
-      <li>Integrated Adafruit Feather RP2040 with 9-DoF IMU for real-time motion tracking</li>
-      <li>Developed browser-based dashboard to visualize orientation data during user testing</li>
-      <li>Conducted iterative prototyping and user-centered design evaluation with violinists</li>
-      <li>Designed and fabricated 3D-printed housing compatible with standard shoulder rests</li>
+      <li><strong>Live view:</strong> A 3D render of the shoulder rest rotates in real time to mirror the violin's orientation; the offending axis tints red and a banner ("Scroll dipping — raise neck") appears when posture crosses a threshold</li>
+      <li><strong>Posture score:</strong> Computed from how closely the instrument remains to the neutral reference over time; smoothed over a rolling window so brief movements don't disproportionately penalize the score</li>
+      <li><strong>Post-session dashboard:</strong> Shows score, session duration, alert count, and which axis (pitch, roll, or yaw) the player spent the most time out of range — surfaced as a focus for the next session</li>
+      <li><strong>Session history:</strong> Scrollable list of all past sessions with full sensor traces; optional cloud sync for sharing data with teachers or tracking across devices</li>
+      <li><strong>Accessibility:</strong> Visual-only feedback — no audio — so alerts register in peripheral vision without competing with the sound of the instrument</li>
     </ul>
 
     <hr class="section-rule-thin">
     <p class="section-num">4. Final Report</p>
-    <h2 class="section-title">Project Website</h2>
-    <p class="body-p">The full project documentation — including design rationale, user research findings, hardware specifications, and outcome — is published as a project website below.</p>
-    <!-- REPLACE the href with your actual project website URL -->
-    <a href="PASTE_YOUR_URL_HERE" target="_blank"
-       style="display:inline-flex; align-items:center; gap:0.5rem; font-family:'DM Sans',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--paper); background:var(--ink); padding:0.65rem 1.3rem; text-decoration:none; transition:background 0.2s;"
-       onmouseover="this.style.background='var(--sage)'" onmouseout="this.style.background='var(--ink)'">
-      View Project Website ↗
-    </a>
+    <h2 class="section-title">Design Documentation</h2>
+    <p class="body-p">
+      The complete final report — including user research with 27 violinists, hardware selection
+      rationale, software architecture, and user testing results — is embedded below.
+      <!-- If the report is published as a website, replace the PDF embed with a link button -->
+    </p>
+    <div class="report-wrap">
+      <iframe src="resonance-report.pdf" title="Resonance Final Design Report"></iframe>
+    </div>
 
   </div>
   <div class="side-col">
@@ -171,37 +190,42 @@
     <div class="side-section">
       <p class="side-label">Status</p>
       <p class="side-stat">Completed</p>
-      <p class="side-stat-label">2025 · Segal Design Institute</p>
+      <p class="side-stat-label">June 2026 · DTC Section 13, Team 1</p>
     </div>
 
     <div class="side-section">
-      <p class="side-label">IMU</p>
+      <p class="side-label">Weight</p>
+      <p class="side-stat">18 g</p>
+      <p class="side-stat-label">Total system including MCU, IMU, and housing</p>
+    </div>
+
+    <div class="side-section">
+      <p class="side-label">Sensor</p>
       <p class="side-stat">9-DoF</p>
-      <p class="side-stat-label">Full 3-axis orientation sensing</p>
+      <p class="side-stat-label">LSM6DSOX + LIS3MDL · accel + gyro + magnetometer · ~100 Hz stream</p>
     </div>
 
     <div class="side-section">
-      <p class="side-label">Microcontroller</p>
+      <p class="side-label">MCU</p>
       <p class="side-stat">RP2040</p>
-      <p class="side-stat-label">Adafruit Feather — compact footprint</p>
+      <p class="side-stat-label">Adafruit Feather · onboard rechargeable battery</p>
     </div>
 
     <div class="side-section">
-      <p class="side-label">Process</p>
-      <p class="side-stat-label" style="line-height:1.9;">User research · Hardware prototyping · Firmware · Browser UI · User testing with violinists</p>
+      <p class="side-label">Team</p>
+      <p class="side-stat-label" style="line-height:2;">Brandon Wang<br>Eric Li<br>Sophia Bian<br>Spencer Kogoma</p>
     </div>
 
     <div class="side-section">
       <p class="side-label">Context</p>
       <p style="font-family:'IM Fell English',serif; font-size:0.95rem; color:var(--ink); margin-bottom:0.2rem;">Segal Design Institute</p>
-      <p class="side-stat-label">Northwestern University · 2025</p>
+      <p class="side-stat-label">Design Thinking &amp; Communication<br>Northwestern University · Spring 2026</p>
     </div>
 
     <div class="side-section">
       <p class="side-label">Final Report</p>
-      <!-- REPLACE href with your actual URL -->
-      <a href="PASTE_YOUR_URL_HERE" target="_blank" class="side-link">Project website ↗</a>
-      <p class="side-stat-label">Full documentation published online</p>
+      <a href="resonance-report.pdf" target="_blank" class="side-link">Download PDF ↗</a>
+      <p class="side-stat-label">66 pages · June 4, 2026</p>
     </div>
 
   </div>
