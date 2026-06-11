@@ -113,15 +113,17 @@
   </div>
   <h1 class="article-title">Northwestern Formula SAE:<br><em>Data Acquisition System</em></h1>
   <p class="article-desc">
-    Building the systems that collect, display, and interpret real-time vehicle data for
-    Northwestern's Formula SAE race car — from dashboard firmware to custom PCB design.
+    Embedded software and PCB design for Northwestern Formula Racing's DAQ subteam —
+    contributing to a ~25,000-line C++ codebase alongside a team of 7, developing dashboard
+    firmware, controller hardware, and tooling for a Formula SAE race car.
   </p>
   <div class="tag-row">
     <span class="tag">C++</span>
-    <span class="tag">PCB Design</span>
+    <span class="tag">Embedded Software</span>
+    <span class="tag">PCB Layout</span>
     <span class="tag">Altium Designer</span>
-    <span class="tag">Embedded Systems</span>
     <span class="tag">CAN Bus</span>
+    <span class="tag">Python</span>
     <span class="tag">Git</span>
   </div>
   <img src="formula.jpg" alt="Northwestern Formula SAE" class="hero-photo"
@@ -135,48 +137,57 @@
     <p class="section-num">1. Overview</p>
     <h2 class="section-title">The Project</h2>
     <p class="body-p">
-      Northwestern Formula Racing's Data Acquisition subteam develops the systems responsible for collecting,
-      transmitting, and visualizing vehicle telemetry. For NFR26, the team is redesigning the race car's
-      dashboard system, which provides drivers with real-time information about vehicle state, battery health,
-      braking, steering, and system faults during operation.
+      Northwestern Formula Racing's Data Acquisition subteam builds the embedded systems behind the car's
+      telemetry, driver interface, and real-time vehicle monitoring. I joined a team of 7 working on a
+      codebase of roughly <em>25,000 lines of C++</em> (plus ~10,000 lines across other languages) — a large,
+      active project that required getting up to speed quickly and contributing meaningfully from early on.
     </p>
     <p class="body-p">
-      My work focuses on both the hardware and software behind the dashboard. I've contributed to the redesign
-      and validation of the dashboard controller hardware, assembled and brought up multiple PCB revisions,
-      and developed software features for driver feedback, telemetry visualization, and CAN network debugging.
+      My work spans both hardware and software: PCB layout and bring-up of the dashboard controller,
+      application-layer firmware for driver feedback, and tooling for integration testing and debugging
+      across the DAQ and low-voltage electronics systems.
     </p>
 
     <hr class="section-rule-thin">
     <p class="section-num">2. Hardware</p>
-    <h2 class="section-title">The PCB</h2>
+    <h2 class="section-title">Dashboard Controller PCB</h2>
     <p class="body-p">
-      I designed Version 2 of the dashboard controller PCB in <em>Altium Designer</em>, improving on the
-      previous iteration with better component placement and layout for the car's packaging constraints.
+      I laid out V2 and contributed to V3 of the dashboard controller PCB in <em>Altium Designer</em>,
+      iterating on the initial design to address issues found during bring-up. The layout involved
+      careful handling of <em>polygon pours, higher-current power sections, and differential signal
+      routing</em> within the car's packaging constraints.
     </p>
     <table class="comp-table">
-      <thead><tr><th>Component</th><th>Role</th></tr></thead>
+      <thead><tr><th>Subsystem</th><th>Details</th></tr></thead>
       <tbody>
-        <tr><td>Microcontroller</td><td>Core processing unit handling CAN bus data and display output</td></tr>
-        <tr><td>NeoPixel LED Array</td><td>Visual status indicators for driver feedback</td></tr>
-        <tr><td>CAN Transceiver</td><td>Communication with vehicle ECU and other modules</td></tr>
-        <tr><td>Display Interface</td><td>Driver-facing dashboard readout for real-time telemetry</td></tr>
+        <tr><td>Polygon Pours</td><td>Ground and power planes with deliberate pour strategy for signal integrity and thermal management</td></tr>
+        <tr><td>High-Current Sections</td><td>Trace width and copper weight sizing for power delivery to display and LED subsystems</td></tr>
+        <tr><td>Differential Signals</td><td>Length-matched differential pairs for CAN bus communication reliability</td></tr>
+        <tr><td>CAN Transceiver</td><td>Interface to vehicle CAN network for telemetry and ECU communication</td></tr>
+        <tr><td>Display Interface</td><td>Driver-facing readout for real-time vehicle state and fault conditions</td></tr>
       </tbody>
     </table>
+    <p class="body-p">
+      After layout, I handled full bring-up: hand-soldering components, debugging electrical issues,
+      and running integration tests to validate each subsystem before vehicle installation.
+    </p>
 
     <hr class="section-rule-thin">
-    <p class="section-num">3. Software</p>
-    <h2 class="section-title">Firmware &amp; Tools</h2>
+    <p class="section-num">3. Embedded Software</p>
+    <h2 class="section-title">Firmware &amp; Tooling</h2>
     <p class="body-p">
-      The dashboard firmware is written in <em>C++</em> and responsible for parsing incoming CAN messages,
-      updating the display, and driving the LED indicators based on vehicle state.
+      The dashboard firmware is written in <em>C++</em> and architected to parse incoming CAN messages
+      and surface meaningful vehicle state to the driver. A key design goal was fast iteration —
+      the architecture allowed new feedback features to be implemented quickly as requirements evolved
+      across the season.
     </p>
     <ul class="detail-list">
-      <li>Validated and brought up dashboard controller hardware, including CAN interfaces, displays, and driver I/O peripherals</li>
-      <li>Assembled and tested multiple dashboard controller PCB revisions prior to vehicle integration</li>
-      <li>Developed NeoPixel drivers and animations for driver feedback and vehicle status indication</li>
-      <li>Implemented dashboard debugging and telemetry screens for vehicle data visualization</li>
-      <li>Maintained and updated CAN communication software as DBC definitions evolved throughout the season</li>
-      <li>Created Python tools to streamline testing, debugging, and development workflows</li>
+      <li>Wrote application-layer firmware giving the driver real-time insight into vehicle state, battery health, braking, and system faults via display and NeoPixel LED indicators</li>
+      <li>Architected the display system to allow rapid implementation of new screens as driver and team feedback came in throughout the season</li>
+      <li>Built dedicated debugging screens for integration testing of the DAQ system and other low-voltage electronics — used during bringup and track testing</li>
+      <li>Wrote a Python script to auto-generate debugging screen code, cutting manual screen-definition time significantly</li>
+      <li>Maintained CAN communication software as DBC definitions evolved, keeping the dashboard in sync with other vehicle systems</li>
+      <li>Onboarded into a ~25,000-line C++ codebase as an underclassman and made meaningful contributions within the first weeks</li>
     </ul>
 
   </div>
@@ -189,15 +200,27 @@
     </div>
 
     <div class="side-section">
-      <p class="side-label">PCB Revision</p>
-      <p class="side-stat">V2</p>
-      <p class="side-stat-label">Dashboard controller designed in Altium Designer</p>
+      <p class="side-label">Codebase Scale</p>
+      <p class="side-stat">~25k</p>
+      <p class="side-stat-label">Lines of C++ · plus ~10k in other languages</p>
+    </div>
+
+    <div class="side-section">
+      <p class="side-label">Team Size</p>
+      <p class="side-stat">7</p>
+      <p class="side-stat-label">DAQ subteam members · ~6 months active development</p>
+    </div>
+
+    <div class="side-section">
+      <p class="side-label">PCB Revisions</p>
+      <p class="side-stat">V2 → V3</p>
+      <p class="side-stat-label">Dashboard controller · Altium Designer · polygon pours, differential signals</p>
     </div>
 
     <div class="side-section">
       <p class="side-label">Primary Language</p>
       <p class="side-stat">C++</p>
-      <p class="side-stat-label">Dashboard firmware &amp; LED driver systems</p>
+      <p class="side-stat-label">Embedded firmware · CAN bus · driver interface</p>
     </div>
 
     <div class="side-section">
