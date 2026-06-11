@@ -139,23 +139,23 @@
     <p class="body-p">
       Northwestern Formula Racing's Data Acquisition subteam builds the embedded systems behind the car's
       telemetry, driver interface, and real-time vehicle monitoring. I joined a team of 7 working on a
-      codebase of roughly <em>25,000 lines of C++</em> (plus ~10,000 lines across other languages) — a large,
+      codebase of roughly <em>25,000 lines of C++</em> (plus ~10,000 lines across other languages), a large,
       active project that required getting up to speed quickly and contributing meaningfully from early on.
     </p>
     <p class="body-p">
-      My work spans both hardware and software: PCB layout and bring-up of the dashboard controller,
+      My work spans both hardware and software. I worked on PCB layout and bring-up of the dashboard controller,
       application-layer firmware for driver feedback, and tooling for integration testing and debugging
-      across the DAQ and low-voltage electronics systems.
+      across the DAQ and low voltage electronics systems.
     </p>
 
     <hr class="section-rule-thin">
     <p class="section-num">2. Hardware</p>
     <h2 class="section-title">Dashboard Controller PCB</h2>
     <p class="body-p">
-      I laid out V2 and contributed to V3 of the dashboard controller PCB in <em>Altium Designer</em>,
+      I laid out V2 and V3 of the dashboard controller PCB in <em>Altium Designer</em>,
       iterating on the initial design to address issues found during bring-up. The layout involved
       careful handling of <em>polygon pours, higher-current power sections, and differential signal
-      routing</em> within the car's packaging constraints.
+      routing</em> within the car's packaging constraints. <!-- ask what the exact issues were again; AND gate, replacing components, etc. -->
     </p>
     <table class="comp-table">
       <thead><tr><th>Subsystem</th><th>Details</th></tr></thead>
@@ -176,7 +176,7 @@
     <p class="section-num">3. Embedded Software</p>
     <h2 class="section-title">Firmware &amp; Tooling</h2>
     <p class="body-p">
-      The dashboard firmware is written in <em>C++</em> and architected to parse incoming CAN messages
+      The dashboard firmware is written primarily in <em>C++</em> and architected to parse incoming CAN messages
       and surface meaningful vehicle state to the driver. A key design goal was fast iteration —
       the architecture allowed new feedback features to be implemented quickly as requirements evolved
       across the season.
