@@ -42,11 +42,13 @@
   .tag-row { display:flex; gap:0.4rem; flex-wrap:wrap; padding-bottom:1.8rem; }
   .tag { font-family:'DM Sans',sans-serif; font-size:0.62rem; color:var(--ink-muted); padding:0.18rem 0.55rem; border:1px solid #d0c8b0; }
   /* PHOTO GALLERY */
-  .photo-gallery { display:grid; grid-template-columns:2fr 1fr 1fr; gap:2px; border-top:1px solid #d0c8b0; background:#d0c8b0; }
-  .gallery-img { width:100%; height:340px; object-fit:cover; display:block; cursor:pointer; transition:opacity 0.2s; }
+  .photo-gallery { border-top:1px solid #d0c8b0; background:#d0c8b0; display:flex; flex-direction:column; gap:2px; }
+  .gallery-row-top { width:100%; }
+  .gallery-row-top .gallery-img { width:100%; height:420px; object-fit:cover; object-position:center; display:block; }
+  .gallery-row-bottom { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+  .gallery-row-bottom .gallery-img { width:100%; height:260px; object-fit:cover; object-position:center top; display:block; }
+  .gallery-img { cursor:pointer; transition:opacity 0.2s; }
   .gallery-img:hover { opacity:0.88; }
-  .gallery-col-right { display:grid; grid-template-rows:1fr 1fr; gap:2px; }
-  .gallery-col-right .gallery-img { height:169px; }
 
   /* LIGHTBOX */
   .lightbox { display:none; position:fixed; inset:0; background:rgba(10,10,5,0.93); z-index:1000; align-items:center; justify-content:center; flex-direction:column; }
@@ -56,7 +58,7 @@
   .lightbox-close { position:fixed; top:1.2rem; right:1.5rem; font-family:'DM Sans',sans-serif; font-size:1.4rem; color:rgba(255,255,255,0.5); cursor:pointer; background:none; border:none; line-height:1; transition:color 0.2s; }
   .lightbox-close:hover { color:#fff; }
 
-  @media (max-width:600px) { .photo-gallery { grid-template-columns:1fr; } .gallery-col-right { grid-template-columns:1fr 1fr; grid-template-rows:auto; } .gallery-img, .gallery-col-right .gallery-img { height:220px; } }
+  @media (max-width:600px) { .gallery-row-top .gallery-img { height:260px; } .gallery-row-bottom .gallery-img { height:180px; } }
 
   /* ARTICLE BODY */
   .article-body { display:grid; grid-template-columns:2fr 1fr; border-bottom:2px solid var(--rule); }
@@ -129,8 +131,8 @@
   <h1 class="article-title">Northwestern Formula Racing:<br><em>Dashboard Controller</em></h1>
   <p class="article-desc">
     Embedded software and PCB design for the Dashboard Controller on Northwestern Formula Racing's
-    DAQ subteam — contributing to a ~25,000-line C++ codebase alongside a team of 7, building
-    the driver-facing firmware, hardware, and tooling for a Formula SAE race car.
+    DAQ subteam — contributing to a ~25,000-line C++ codebase alongside a dashboard team of 7,
+    building the driver-facing firmware, hardware, and tooling for a Formula SAE race car.
   </p>
   <div class="tag-row">
     <span class="tag">C++</span>
@@ -142,9 +144,11 @@
     <span class="tag">Git</span>
   </div>
   <div class="photo-gallery">
-    <img src="formula-assembly.png" alt="Dashboard Controller assembly — SolidWorks render"
-         class="gallery-img" onclick="openLightbox(this.src, 'Fig. 1 — Dashboard Controller assembly, SolidWorks render')">
-    <div class="gallery-col-right">
+    <div class="gallery-row-top">
+      <img src="formula-assembly.png" alt="Dashboard Controller assembly — SolidWorks render"
+           class="gallery-img" onclick="openLightbox(this.src, 'Fig. 1 — Dashboard Controller assembly, SolidWorks render')">
+    </div>
+    <div class="gallery-row-bottom">
       <img src="formula-pcb-v3.png" alt="Dashboard Controller V3 PCB"
            class="gallery-img" onclick="openLightbox(this.src, 'Fig. 2 — Dashboard Controller V3 PCB')">
       <img src="formula-pcb-layout.png" alt="Dashboard Controller V3 Altium layout"
@@ -167,10 +171,11 @@
     <p class="section-num">1. Overview</p>
     <h2 class="section-title">The Project</h2>
     <p class="body-p">
-      Northwestern Formula Racing's Data Acquisition subteam builds the embedded systems behind the car's
-      telemetry, driver interface, and real-time vehicle monitoring. I joined a team of 7 working on a
-      codebase of roughly <em>25,000 lines of C++</em> (plus ~10,000 lines across other languages), a large,
-      active project that required getting up to speed quickly and contributing meaningfully from early on.
+      Northwestern Formula Racing's Data Acquisition (DAQ) subteam builds the embedded systems behind the car's
+      telemetry, driver interface, and real-time vehicle monitoring. The Dashboard Controller is a subgroup
+      within DAQ — I joined this team of 7 working on a codebase of roughly <em>25,000 lines of C++</em>
+      (plus ~10,000 lines across other languages), a large, active project that required getting up to speed
+      quickly and contributing meaningfully from early on.
     </p>
     <p class="body-p">
       My work spans both hardware and software. I worked on PCB layout and bring-up of the dashboard controller,
@@ -238,7 +243,7 @@
     <div class="side-section">
       <p class="side-label">Team Size</p>
       <p class="side-stat">7</p>
-      <p class="side-stat-label">DAQ subteam members · ~6 months active development</p>
+      <p class="side-stat-label">Dashboard team members (subgroup of DAQ) · ~6 months active development</p>
     </div>
 
     <div class="side-section">

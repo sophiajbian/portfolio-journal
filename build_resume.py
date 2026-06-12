@@ -188,8 +188,8 @@ def build():
         'Evanston, IL',
         s)
     story.append(bullet(
-        'Contributing to a ~25,000-line C++ firmware codebase on a team of 7, '
-        'building the driver-facing Dashboard Controller for a Formula SAE race car', s))
+        'Contributing to a ~25,000-line C++ firmware codebase on a dashboard team of 7 '
+        '(subgroup of the DAQ subteam), building the driver-facing Dashboard Controller for a Formula SAE race car', s))
     story.append(bullet(
         'Designed V2 and V3 Dashboard Controller PCBs in Altium Designer: polygon pours '
         'for thermal management, high-current trace layout, and differential pair routing '
