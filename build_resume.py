@@ -167,7 +167,7 @@ def build():
     story.append(bullet(
         'Engineering Dean’s Honors List (2025, 2026)', s))
     story.append(bullet(
-        'Coursework: Computer Engineering Design · Intro to Computer Engineering · '
+        'Coursework: Computer Engineering Design · Intro to Electrical Engineering · '
         'Object-Oriented Programming · Fundamentals of Computer Science · '
         'Linear Algebra · Multi-Variable Calculus', s))
     story.append(Spacer(1, 5))
@@ -188,8 +188,8 @@ def build():
         'Evanston, IL',
         s)
     story.append(bullet(
-        'Contributing to a ~25,000-line C++ firmware codebase on a dashboard team of 7 '
-        '(subgroup of the DAQ subteam), building the driver-facing Dashboard Controller for a Formula SAE race car', s))
+        'Contributing to a ~25,000-line C++ firmware codebase on team of 7 for the Dashboard'
+        'Revised the driver-facing Dashboard Controller for a Formula SAE race car', s))
     story.append(bullet(
         'Designed V2 and V3 Dashboard Controller PCBs in Altium Designer: polygon pours '
         'for thermal management, high-current trace layout, and differential pair routing '
@@ -203,7 +203,7 @@ def build():
 
     story.append(Spacer(1, 5))
     story += entry_header(
-        'Querrey Simpson Institute for Bioelectronics — Rogers Research Group',
+        'Querrey Simpson Institute for Bioelectronics, Rogers Research Group',
         'January 2026 – Present',
         'Undergraduate Research Assistant',
         'Evanston, IL',

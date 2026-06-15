@@ -114,7 +114,7 @@
   <a href="about.html">About</a>
   <a href="projects.html" class="active">Projects</a>
   <a href="music.html">Music</a>
-  <a href="resume.html">Résumé</a>
+  <a href="resume.html">Resume</a>
   <a href="gallery.html">Gallery</a>
   <a href="contact.html">Contact</a>
 </nav>
@@ -128,11 +128,11 @@
     <span>Sept 2025 – Present</span>
     <span class="status-badge">In Progress</span>
   </div>
-  <h1 class="article-title">Northwestern Formula Racing:<br><em>Dashboard Controller</em></h1>
+  <h1 class="article-title">Northwestern Formula Racing:<br><em>Dashboard</em></h1>
   <p class="article-desc">
-    Embedded software and PCB design for the Dashboard Controller on Northwestern Formula Racing's
-    DAQ subteam — contributing to a ~25,000-line C++ codebase alongside a dashboard team of 7,
-    building the driver-facing firmware, hardware, and tooling for a Formula SAE race car.
+    For Northwestern Formula Racing's 2026 build cycle, I worked on embedded software and PCB design for the 
+    Dashboard. I spent >6 months contributing to a ~25,000-line C++ codebase alongside a team of 7, building 
+    the driver-facing firmware, hardware, and tooling.
   </p>
   <div class="tag-row">
     <span class="tag">C++</span>
@@ -146,7 +146,7 @@
   <div class="photo-gallery">
     <div class="gallery-row-top">
       <img src="formula-assembly.png" alt="Dashboard Controller assembly — SolidWorks render"
-           class="gallery-img" onclick="openLightbox(this.src, 'Fig. 1 — Dashboard Controller assembly, SolidWorks render')">
+           class="gallery-img" onclick="openLightbox(this.src, 'Fig. 1 — Dashboard/ Vehicle Control Unit packaging, SolidWorks render')">
     </div>
     <div class="gallery-row-bottom">
       <img src="formula-pcb-v3.png" alt="Dashboard Controller V3 PCB"
@@ -170,24 +170,23 @@
     <hr class="section-rule">
     <p class="section-num">1. Overview</p>
     <h2 class="section-title">The Project</h2>
-    <p class="body-p">
+    <p class="body-p"> <!-- okay this needs major revision-->
       Northwestern Formula Racing's Data Acquisition (DAQ) subteam builds the embedded systems behind the car's
-      telemetry, driver interface, and real-time vehicle monitoring. The Dashboard Controller is a subgroup
-      within DAQ — I joined this team of 7 working on a codebase of roughly <em>25,000 lines of C++</em>
-      (plus ~10,000 lines across other languages), a large, active project that required getting up to speed
-      quickly and contributing meaningfully from early on.
+      telemetry, driver interface, and real-time vehicle monitoring. The Dashboard is a subgroup
+      within the DAQ subteam. I joined our team of 7 working on a codebase of roughly <em>25,000 lines of C++</em>
+      (plus around 10,000 lines across other languages).
     </p>
     <p class="body-p">
-      My work spans both hardware and software. I worked on PCB layout and bring-up of the dashboard controller,
+      My work spans both hardware and software. I worked on PCB layout and bring-up of the Dashboard's controller board,
       application-layer firmware for driver feedback, and tooling for integration testing and debugging
       across the DAQ and low voltage electronics systems.
     </p>
 
-    <hr class="section-rule-thin">
+    <hr class="section-rule-thin"> <!-- ask evan what the eaxct issues were-->
     <p class="section-num">2. Hardware</p>
     <h2 class="section-title">Dashboard Controller PCB</h2>
     <p class="body-p">
-      I laid out V2 and V3 of the dashboard controller PCB in <em>Altium Designer</em>,
+      I worked on the layout for V2 and V3 of the Dashboard's controller PCB in <em>Altium Designer</em>,
       iterating on the initial design to address issues found during bring-up. The layout involved
       careful handling of <em>polygon pours, higher-current power sections, and differential signal
       routing</em> within the car's packaging constraints. <!-- ask what the exact issues were again; AND gate, replacing components, etc. -->
@@ -195,16 +194,15 @@
     <table class="comp-table">
       <thead><tr><th>Subsystem</th><th>Details</th></tr></thead>
       <tbody>
-        <tr><td>Polygon Pours</td><td>Ground and power planes with deliberate pour strategy for signal integrity and thermal management</td></tr>
+        <tr><td>Polygon Pours</td><td>Ground and power planes with deliberate pour strategy for signal integrity</td></tr>
         <tr><td>High-Current Sections</td><td>Trace width and copper weight sizing for power delivery to display and LED subsystems</td></tr>
-        <tr><td>Differential Signals</td><td>Length-matched differential pairs for CAN bus communication reliability</td></tr>
-        <tr><td>CAN Transceiver</td><td>Interface to vehicle CAN network for telemetry and ECU communication</td></tr>
+        <tr><td>Differential Signals</td><td>Length-matched differential pairs for CAN bus communication</td></tr>
         <tr><td>Display Interface</td><td>Driver-facing readout for real-time vehicle state and fault conditions</td></tr>
       </tbody>
     </table>
     <p class="body-p">
-      After layout, I handled full bring-up: hand-soldering components, debugging electrical issues,
-      and running integration tests to validate each subsystem before vehicle installation.
+      After the layout of the Dasbhoard's controller board, I handles the board's bring-up; I hand-soldered components, debugged electrical issues,
+      and ran integration tests to validate each subsystem before vehicle installation.
     </p>
 
     <hr class="section-rule-thin">
@@ -212,17 +210,13 @@
     <h2 class="section-title">Firmware &amp; Tooling</h2>
     <p class="body-p">
       The dashboard firmware is written primarily in <em>C++</em> and architected to parse incoming CAN messages
-      and surface meaningful vehicle state to the driver. A key design goal was fast iteration —
-      the architecture allowed new feedback features to be implemented quickly as requirements evolved
-      across the season.
+      and display meaningful vehicle status information to the driver.
     </p>
     <ul class="detail-list">
       <li>Wrote application-layer firmware giving the driver real-time insight into vehicle state, battery health, braking, and system faults via display and NeoPixel LED indicators</li>
-      <li>Architected the display system to allow rapid implementation of new screens as driver and team feedback came in throughout the season</li>
-      <li>Built dedicated debugging screens for integration testing of the DAQ system and other low-voltage electronics — used during bringup and track testing</li>
-      <li>Wrote a Python script to auto-generate debugging screen code, cutting manual screen-definition time significantly</li>
+      <li>Built dedicated debugging screens for integration testing of the DAQ system and other low-voltage electronics; used during bringup and drive testing</li>
+      <li>Wrote a Python script to auto-generate debugging screen code, cutting manual software development time significantly</li>
       <li>Maintained CAN communication software as DBC definitions evolved, keeping the dashboard in sync with other vehicle systems</li>
-      <li>Onboarded into a ~25,000-line C++ codebase as an underclassman and made meaningful contributions within the first weeks</li>
     </ul>
 
   </div>
@@ -230,25 +224,25 @@
 
     <div class="side-section">
       <p class="side-label">Status</p>
-      <p class="side-stat">In Progress</p>
-      <p class="side-stat-label">Active — season 2025–26</p>
+      <p class="side-stat">Completed</p>
+      <p class="side-stat-label">June 2026</p>
     </div>
 
     <div class="side-section">
       <p class="side-label">Codebase Scale</p>
       <p class="side-stat">~25k</p>
-      <p class="side-stat-label">Lines of C++ · plus ~10k in other languages</p>
+      <p class="side-stat-label">Lines of C++, plus ~10k in other languages</p>
     </div>
 
     <div class="side-section">
       <p class="side-label">Team Size</p>
       <p class="side-stat">7</p>
-      <p class="side-stat-label">Dashboard team members (subgroup of DAQ) · ~6 months active development</p>
+      <p class="side-stat-label">Dashboard team members (subgroup of DAQ), ~6 months active development</p>
     </div>
 
     <div class="side-section">
       <p class="side-label">PCB Revisions</p>
-      <p class="side-stat">V2 → V3</p>
+      <p class="side-stat">V1 → V2→ V3</p>
       <p class="side-stat-label">Dashboard controller · Altium Designer · polygon pours, differential signals</p>
     </div>
 
@@ -263,7 +257,7 @@
       <a href="https://github.com/NU-Formula-Racing/daq-dash-26" target="_blank" class="side-link">
         NU-Formula-Racing/daq-dash-26 ↗
       </a>
-      <p class="side-stat-label">Public — open source</p>
+      <p class="side-stat-label">Public</p>
     </div>
 
     <div class="side-section">
