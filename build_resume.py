@@ -161,7 +161,7 @@ def build():
     story += entry_header(
         'Northwestern University',
         'Expected June 2029',
-        'B.S. Electrical Engineering, Minor in Computer Science',
+        'B.S. Electrical Engineering, Minor in Computer Science  |  GPA: 3.98',
         'Evanston, IL',
         s)
     story.append(bullet(
