@@ -9,6 +9,9 @@
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
+/* No italics anywhere on the site */
+*, *::before, *::after { font-style:normal !important; }
+
 body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville',serif; font-size:16px; line-height:1.7; }
 
 ::selection { background:var(--sage-pale); color:var(--ink); }
