@@ -192,20 +192,7 @@
     </p>
 
     <hr class="section-rule-thin">
-    <p class="section-num">3. Debugging</p>
-    <h2 class="section-title">Flickering LEDs</h2>
-    <p class="body-p">
-      The dashboard's addressable LED strips flickered intermittently and sometimes showed the wrong colors.
-      I traced the problem to the <em>PWM drive</em>. For the second revision, I designed <em>AND-gate and
-      multiplexer logic</em> into the layout so all the strips could run from a single PWM output.
-    </p>
-    <p class="body-p">
-      In the revision I'm designing now, the strips are chained into one addressable run instead. That removes
-      the gating logic entirely and halves the board's footprint.
-    </p>
-
-    <hr class="section-rule-thin">
-    <p class="section-num">4. Software</p>
+    <p class="section-num">3. Software</p>
     <h2 class="section-title">Firmware &amp; Tooling</h2>
     <ul class="detail-list">
       <li>Wrote the C++ application that decodes vehicle CAN traffic and shows live sensor measurements on the driver display</li>
