@@ -5,26 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NFR Dashboard — Sophia Bian</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="Formula SAE dashboard: C++ firmware, Altium PCB layout (V2/V3), CAN bus, and Python tooling for Northwestern Formula Racing.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NFR Dashboard — Sophia Bian">
+<meta property="og:description" content="Formula SAE dashboard: C++ firmware, Altium PCB layout (V2/V3), CAN bus, and Python tooling for Northwestern Formula Racing.">
+<meta property="og:image" content="https://sophiajbian.github.io/portfolio-journal/formula-pcb-v3-web.jpg">
+<meta property="og:url" content="https://sophiajbian.github.io/portfolio-journal/project-formula.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23fdfaf4'/><text x='50' y='72' font-size='64' text-anchor='middle' font-family='Georgia' font-style='italic' fill='%233a5a3e'>S</text></svg>">
+<link rel="stylesheet" href="styles.css">
 <style>
-  :root {
-    --paper:#fdfaf4; --paper2:#f5f1e8; --ink:#1a1a10; --ink-mid:#4a4a38;
-    --ink-muted:#7a7860; --ink-faint:#b0aa90; --rule:#2a2a1e;
-    --sage:#3a5a3e; --sage-light:#8aaa8e; --sage-pale:#d4e2d6;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
-  body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville',serif; font-size:15px; line-height:1.7; }
-
-  .masthead { border-top:3px solid var(--rule); border-bottom:1px solid var(--rule); padding:0.5rem 5vw; display:flex; justify-content:space-between; align-items:center; }
-  .masthead-vol { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:500; letter-spacing:0.12em; color:var(--ink-muted); text-transform:uppercase; }
-  .masthead-logo { font-family:'IM Fell English',serif; font-size:1.5rem; color:var(--ink); }
-  .masthead-logo a { color:inherit; text-decoration:none; }
-  .masthead-right { font-family:'DM Sans',sans-serif; font-size:0.62rem; color:var(--ink-muted); text-align:right; letter-spacing:0.06em; line-height:1.5; }
-  nav { border-bottom:2px solid var(--rule); padding:0.45rem 5vw; display:flex; justify-content:center; gap:0; }
-  nav a { font-family:'DM Sans',sans-serif; font-size:0.7rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-muted); text-decoration:none; padding:0.25rem 1.4rem; border-right:1px solid #d0c8b0; transition:color 0.2s; }
-  nav a:first-child { border-left:1px solid #d0c8b0; }
-  nav a:hover, nav a.active { color:var(--ink); }
+  /* tokens · masthead · nav · footer → styles.css */
 
   /* BACK LINK */
   .back-bar { padding:1rem 5vw; border-bottom:1px solid #e0d8c4; background:var(--paper2); }
@@ -33,14 +24,14 @@
 
   /* ARTICLE HEADER */
   .article-header { padding:2.5rem 5vw 0; border-bottom:1px solid #d0c8b0; }
-  .article-kicker { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.6rem; display:flex; gap:1.2rem; align-items:center; flex-wrap:wrap; }
-  .status-badge { display:inline-block; font-family:'DM Sans',sans-serif; font-size:0.58rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; border:1px solid var(--sage); color:var(--sage); padding:0.18rem 0.6rem; }
+  .article-kicker { font-family:'DM Sans',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.6rem; display:flex; gap:1.2rem; align-items:center; flex-wrap:wrap; }
+  .status-badge { display:inline-block; font-family:'DM Sans',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; border:1px solid var(--sage); color:var(--sage); padding:0.18rem 0.6rem; }
   .status-badge.complete { border-color:var(--ink-faint); color:var(--ink-faint); }
   .article-title { font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(2rem,4vw,3rem); line-height:1.1; color:var(--ink); font-weight:400; margin-bottom:1rem; margin-top:0.5rem; }
   .article-title em { color:var(--sage); }
   .article-desc { font-size:0.9rem; color:var(--ink-muted); line-height:1.85; max-width:680px; margin-bottom:1.5rem; }
   .tag-row { display:flex; gap:0.4rem; flex-wrap:wrap; padding-bottom:1.8rem; }
-  .tag { font-family:'DM Sans',sans-serif; font-size:0.62rem; color:var(--ink-muted); padding:0.18rem 0.55rem; border:1px solid #d0c8b0; }
+  .tag { font-family:'DM Sans',sans-serif; font-size:0.68rem; color:var(--ink-muted); padding:0.18rem 0.55rem; border:1px solid #d0c8b0; }
   /* PHOTO GALLERY */
   .photo-gallery { border-top:1px solid #d0c8b0; background:#d0c8b0; display:flex; flex-direction:column; gap:2px; }
   .gallery-row-top { width:100%; }
@@ -67,14 +58,14 @@
 
   .section-rule { border:none; border-top:2px solid var(--rule); margin-bottom:0.5rem; }
   .section-rule-thin { border:none; border-top:1px solid #d0c8b0; margin:2rem 0 1.2rem; }
-  .section-num { font-family:'DM Sans',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-muted); margin-bottom:0.5rem; }
+  .section-num { font-family:'DM Sans',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--sage); margin-bottom:0.5rem; }
   .section-title { font-family:'IM Fell English',serif; font-size:1.3rem; color:var(--ink); font-weight:400; margin-bottom:0.8rem; }
-  .body-p { font-size:0.88rem; color:var(--ink-mid); line-height:1.9; margin-bottom:0.85rem; }
+  .body-p { font-size:0.92rem; color:var(--ink-mid); line-height:1.9; margin-bottom:0.85rem; }
   .body-p em { color:var(--sage); font-style:italic; }
 
   /* TABLE */
   .comp-table { width:100%; border-collapse:collapse; margin:0.8rem 0 1.2rem; font-size:0.82rem; }
-  .comp-table th { font-family:'DM Sans',sans-serif; font-size:0.6rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink-faint); padding:0.5rem 0.8rem; text-align:left; border-bottom:2px solid var(--rule); }
+  .comp-table th { font-family:'DM Sans',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink-faint); padding:0.5rem 0.8rem; text-align:left; border-bottom:2px solid var(--rule); }
   .comp-table td { color:var(--ink-muted); padding:0.75rem 0.8rem; border-bottom:1px solid #e8e0cc; vertical-align:top; line-height:1.7; }
   .comp-table td:first-child { font-family:'DM Sans',sans-serif; font-weight:600; color:var(--ink); font-size:0.8rem; white-space:nowrap; }
 
@@ -86,19 +77,16 @@
   /* SIDEBAR */
   .side-section { margin-bottom:1.8rem; padding-bottom:1.8rem; border-bottom:1px solid #d4ccb4; }
   .side-section:last-child { border-bottom:none; margin-bottom:0; }
-  .side-label { font-family:'DM Sans',sans-serif; font-size:0.58rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.8rem; }
+  .side-label { font-family:'DM Sans',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.8rem; }
   .side-stat { font-family:'IM Fell English',serif; font-size:1.5rem; color:var(--ink); line-height:1; margin-bottom:0.15rem; }
   .side-stat-label { font-family:'DM Sans',sans-serif; font-size:0.65rem; color:var(--ink-muted); }
   .side-link { display:block; font-family:'DM Sans',sans-serif; font-size:0.72rem; font-weight:600; color:var(--sage); text-decoration:none; border-bottom:1px solid var(--sage-pale); padding-bottom:0.1rem; margin-bottom:0.5rem; transition:border-color 0.2s; }
   .side-link:hover { border-color:var(--sage); }
 
-  footer { background:var(--ink); border-top:1px solid rgba(255,255,255,0.08); padding:1rem 5vw; display:flex; justify-content:space-between; font-family:'DM Sans',sans-serif; font-size:0.62rem; color:rgba(255,255,255,0.25); letter-spacing:0.06em; }
-  footer a { color:rgba(255,255,255,0.25); text-decoration:none; }
 
   @media (max-width:768px) {
     .article-body { grid-template-columns:1fr; }
     .side-col { border-top:1px solid #d0c8b0; }
-    nav a { padding:0.25rem 0.8rem; }
   }
 </style>
 </head>
@@ -111,11 +99,11 @@
 </div>
 <nav>
   <a href="index.html">Home</a>
+  <a href="projects.html" class="active" aria-current="page">Projects</a>
   <a href="about.html">About</a>
-  <a href="projects.html" class="active">Projects</a>
+  <a href="resume.html">Résumé</a>
   <a href="music.html">Music</a>
-  <a href="resume.html">Resume</a>
-
+  <a href="gallery.html">Gallery</a>
   <a href="contact.html">Contact</a>
 </nav>
 
@@ -125,8 +113,8 @@
 
 <div class="article-header">
   <div class="article-kicker">
-    <span>Sept 2025 – Present</span>
-    <span class="status-badge">In Progress</span>
+    <span>Sept 2025 – June 2026</span>
+    <span class="status-badge complete">Completed</span>
   </div>
   <h1 class="article-title">Northwestern Formula Racing:<br><em>Dashboard</em></h1>
   <p class="article-desc">
@@ -149,7 +137,7 @@
            class="gallery-img" onclick="openLightbox(this.src, 'Fig. 1 — Dashboard/ Vehicle Control Unit packaging, SolidWorks render')">
     </div>
     <div class="gallery-row-bottom">
-      <img src="formula-pcb-v3.png" alt="Dashboard Controller V3 PCB"
+      <img src="formula-pcb-v3-web.jpg" alt="Dashboard Controller V3 PCB"
            class="gallery-img" onclick="openLightbox(this.src, 'Fig. 2 — Dashboard Controller V3 PCB')">
       <img src="formula-pcb-layout.png" alt="Dashboard Controller V3 Altium layout"
            class="gallery-img" onclick="openLightbox(this.src, 'Fig. 3 — Dashboard Controller V3, Altium Designer layout')">
@@ -201,7 +189,7 @@
       </tbody>
     </table>
     <p class="body-p">
-      After the layout of the Dasbhoard's controller board, I handles the board's bring-up; I hand-soldered components, debugged electrical issues,
+      After the layout of the Dashboard's controller board, I handled the board's bring-up; I hand-soldered components, debugged electrical issues,
       and ran integration tests to validate each subsystem before vehicle installation.
     </p>
 

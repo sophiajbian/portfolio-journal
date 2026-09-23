@@ -5,36 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Résumé — Sophia Bian</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="Résumé of Sophia Bian — engineering and music editions, viewable online or as PDF downloads.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Résumé — Sophia Bian">
+<meta property="og:description" content="Résumé of Sophia Bian — engineering and music editions, viewable online or as PDF downloads.">
+<meta property="og:image" content="https://sophiajbian.github.io/portfolio-journal/formula-pcb-v3-web.jpg">
+<meta property="og:url" content="https://sophiajbian.github.io/portfolio-journal/resume.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23fdfaf4'/><text x='50' y='72' font-size='64' text-anchor='middle' font-family='Georgia' font-style='italic' fill='%233a5a3e'>S</text></svg>">
+<link rel="stylesheet" href="styles.css">
 <style>
-  :root {
-    --paper:#fdfaf4; --paper2:#f5f1e8; --ink:#1a1a10; --ink-mid:#4a4a38;
-    --ink-muted:#7a7860; --ink-faint:#b0aa90; --rule:#2a2a1e;
-    --sage:#3a5a3e; --sage-light:#8aaa8e; --sage-pale:#d4e2d6;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--paper); color:var(--ink); font-family:'Libre Baskerville',serif; font-size:15px; line-height:1.7; }
-  .masthead { border-top:3px solid var(--rule); border-bottom:1px solid var(--rule); padding:0.5rem 5vw; display:flex; justify-content:space-between; align-items:center; }
-  .masthead-vol { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:500; letter-spacing:0.12em; color:var(--ink-muted); text-transform:uppercase; }
-  .masthead-logo { font-family:'IM Fell English',serif; font-size:1.5rem; color:var(--ink); }
-  .masthead-logo a { color:inherit; text-decoration:none; }
-  .masthead-right { font-family:'DM Sans',sans-serif; font-size:0.62rem; color:var(--ink-muted); text-align:right; letter-spacing:0.06em; line-height:1.5; }
-  nav { border-bottom:2px solid var(--rule); padding:0.45rem 5vw; display:flex; justify-content:center; gap:0; }
-  nav a { font-family:'DM Sans',sans-serif; font-size:0.7rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-muted); text-decoration:none; padding:0.25rem 1.4rem; border-right:1px solid #d0c8b0; transition:color 0.2s; }
-  nav a:first-child { border-left:1px solid #d0c8b0; }
-  nav a:hover, nav a.active { color:var(--ink); }
+  /* tokens · masthead · nav · footer → styles.css */
 
   /* RESUME HEADER */
   .resume-header { padding:2.5rem 5vw; border-bottom:1px solid #d0c8b0; display:flex; justify-content:space-between; align-items:center; gap:2rem; }
   .resume-header-left { display:flex; gap:2rem; align-items:center; }
   .headshot { width:100px; height:100px; border-radius:50%; object-fit:cover; object-position:center 20%; border:2px solid #d0c8b0; }
   .resume-name-block {}
-  .resume-kicker { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.4rem; }
+  .resume-kicker { font-family:'DM Sans',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.4rem; }
   .resume-name { font-family:'IM Fell English',serif; font-size:2rem; color:var(--ink); font-weight:400; }
   .resume-name em { font-style:italic; color:var(--sage); }
   .resume-affil { font-family:'DM Sans',sans-serif; font-size:0.72rem; color:var(--ink-muted); margin-top:0.2rem; }
   .download-btn { font-family:'DM Sans',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--paper); background:var(--ink); padding:0.65rem 1.4rem; text-decoration:none; transition:background 0.2s; white-space:nowrap; }
   .download-btn:hover { background:var(--sage); }
+  .download-btn--ghost { background:transparent; color:var(--ink); border:1px solid var(--rule); padding:calc(0.65rem - 1px) calc(1.4rem - 1px); }
+  .download-btn--ghost:hover { background:var(--paper2); color:var(--ink); }
+  .resume-actions { display:flex; gap:0.8rem; flex-wrap:wrap; }
 
   /* TABS */
   .tab-bar { border-bottom:1px solid #d0c8b0; padding:0 5vw; display:flex; }
@@ -52,11 +48,15 @@
   .pdf-missing p { font-size:0.82rem; line-height:1.7; }
   .pdf-missing code { font-family:monospace; background:var(--paper2); color:var(--sage); padding:0.15rem 0.4rem; font-size:0.78rem; }
 
-  footer { background:var(--ink); border-top:1px solid rgba(255,255,255,0.08); padding:1rem 5vw; display:flex; justify-content:space-between; font-family:'DM Sans',sans-serif; font-size:0.62rem; color:rgba(255,255,255,0.25); letter-spacing:0.06em; }
-  footer a { color:rgba(255,255,255,0.25); text-decoration:none; }
+  /* Mobile: embedded PDFs render poorly on iOS Safari — offer the document directly */
+  .pdf-mobile-cta { display:none; }
+  @media (max-width:700px) {
+    .pdf-wrap iframe { display:none; }
+    .pdf-mobile-cta { display:block; padding:3rem 1.5rem; text-align:center; }
+    .pdf-mobile-cta p { font-style:italic; color:var(--ink-muted); font-size:0.85rem; margin-bottom:1.4rem; }
+  }
   @media (max-width:600px) {
     .resume-header { flex-direction:column; align-items:flex-start; }
-    nav a { padding:0.25rem 0.8rem; }
   }
 </style>
 </head>
@@ -69,25 +69,28 @@
 </div>
 <nav>
   <a href="index.html">Home</a>
-  <a href="about.html">About</a>
   <a href="projects.html">Projects</a>
+  <a href="about.html">About</a>
+  <a href="resume.html" class="active" aria-current="page">Résumé</a>
   <a href="music.html">Music</a>
-  <a href="resume.html" class="active">Resume</a>
-
+  <a href="gallery.html">Gallery</a>
   <a href="contact.html">Contact</a>
 </nav>
 
 <div class="resume-header">
   <div class="resume-header-left">
-    <img src="headshot.JPG" alt="Sophia Bian" class="headshot"
+    <img src="headshot-web.jpg" alt="Sophia Bian" class="headshot"
          onerror="this.style.display='none'">
     <div class="resume-name-block">
-      <p class="resume-kicker">Curriculum Vitae</p>
-      <h1 class="resume-name">Sophia Bian — <em>Resume</em></h1>
+      <p class="resume-kicker">Résumé · Two Editions</p>
+      <h1 class="resume-name">Sophia Bian — <em>Résumé</em></h1>
       <p class="resume-affil">Northwestern University · B.S. Electrical Engineering · Class of 2029</p>
     </div>
   </div>
-  <a href="resume-engineering.pdf" download class="download-btn">↓ Download Engineering CV</a>
+  <div class="resume-actions">
+    <a id="dl-btn" href="resume-engineering.pdf" download class="download-btn">↓ Download PDF</a>
+    <a id="open-btn" href="resume-engineering.pdf" target="_blank" rel="noopener" class="download-btn download-btn--ghost">Open in New Tab ↗</a>
+  </div>
 </div>
 
 <div class="tab-bar">
@@ -98,6 +101,10 @@
 <div class="pdf-pane active" id="pane-engineering">
   <div class="pdf-wrap">
     <iframe src="resume-engineering.pdf" title="Engineering Résumé"></iframe>
+    <div class="pdf-mobile-cta">
+      <p>Best viewed as a document —</p>
+      <a href="resume-engineering.pdf" target="_blank" rel="noopener" class="download-btn">Open Engineering Résumé (PDF)</a>
+    </div>
   </div>
   <div class="pdf-missing" id="missing-engineering" style="display:none">
     <h3>Document not found</h3>
@@ -108,6 +115,10 @@
 <div class="pdf-pane" id="pane-music">
   <div class="pdf-wrap">
     <iframe src="resume-music.pdf" title="Music Résumé"></iframe>
+    <div class="pdf-mobile-cta">
+      <p>Best viewed as a document —</p>
+      <a href="resume-music.pdf" target="_blank" rel="noopener" class="download-btn">Open Music Résumé (PDF)</a>
+    </div>
   </div>
   <div class="pdf-missing" id="missing-music" style="display:none">
     <h3>Document not found</h3>
@@ -126,6 +137,9 @@
     document.querySelectorAll('.pdf-pane').forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
     document.getElementById('pane-' + name).classList.add('active');
+    const pdf = name === 'engineering' ? 'resume-engineering.pdf' : 'resume-music.pdf';
+    document.getElementById('dl-btn').href = pdf;
+    document.getElementById('open-btn').href = pdf;
   }
   window.addEventListener('load', () => {
     ['engineering','music'].forEach(t => {

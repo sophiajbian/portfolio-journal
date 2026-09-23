@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NFR Education Board — Sophia Bian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="A teaching-focused CAN node PCB for onboarding new Northwestern Formula Racing members: soldering, power-tree bring-up, CAN, and sensor acquisition. STM32U535, MCP3561R, BMI323.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NFR Education Board — Sophia Bian">
+<meta property="og:description" content="A teaching-focused CAN node PCB for onboarding new Northwestern Formula Racing members: soldering, power-tree bring-up, CAN, and sensor acquisition. STM32U535, MCP3561R, BMI323.">
+<meta property="og:url" content="https://sophiajbian.github.io/portfolio-journal/project-education-board.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23fdfaf4'/><text x='50' y='72' font-size='64' text-anchor='middle' font-family='Georgia' font-style='italic' fill='%233a5a3e'>S</text></svg>">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* tokens · masthead · nav · footer → styles.css */
+
+  /* BACK LINK */
+  .back-bar { padding:1rem 5vw; border-bottom:1px solid #e0d8c4; background:var(--paper2); }
+  .back-link { font-family:'DM Sans',sans-serif; font-size:0.68rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); text-decoration:none; transition:color 0.2s; }
+  .back-link:hover { color:var(--sage); }
+
+  /* ARTICLE HEADER */
+  .article-header { padding:2.5rem 5vw 0; border-bottom:1px solid #d0c8b0; }
+  .article-kicker { font-family:'DM Sans',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.6rem; display:flex; gap:1.2rem; align-items:center; flex-wrap:wrap; }
+  .status-badge { display:inline-block; font-family:'DM Sans',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; border:1px solid var(--sage); color:var(--sage); padding:0.18rem 0.6rem; }
+  .status-badge.complete { border-color:var(--ink-faint); color:var(--ink-faint); }
+  .article-title { font-family:'IM Fell English',serif; font-style:italic; font-size:clamp(2rem,4vw,3rem); line-height:1.1; color:var(--ink); font-weight:400; margin-bottom:1rem; margin-top:0.5rem; }
+  .article-title em { color:var(--sage); }
+  .article-desc { font-size:0.9rem; color:var(--ink-muted); line-height:1.85; max-width:680px; margin-bottom:1.5rem; }
+  .tag-row { display:flex; gap:0.4rem; flex-wrap:wrap; padding-bottom:1.8rem; }
+  .tag { font-family:'DM Sans',sans-serif; font-size:0.68rem; color:var(--ink-muted); padding:0.18rem 0.55rem; border:1px solid #d0c8b0; }
+  /* ARTICLE BODY */
+  .article-body { display:grid; grid-template-columns:2fr 1fr; border-bottom:2px solid var(--rule); }
+  .main-col { padding:2.5rem 3rem 2.5rem 5vw; border-right:1px solid #d0c8b0; }
+  .side-col { padding:2.5rem 5vw 2.5rem 2.5rem; background:var(--paper2); }
+
+  .section-rule { border:none; border-top:2px solid var(--rule); margin-bottom:0.5rem; }
+  .section-rule-thin { border:none; border-top:1px solid #d0c8b0; margin:2rem 0 1.2rem; }
+  .section-num { font-family:'DM Sans',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--sage); margin-bottom:0.5rem; }
+  .section-title { font-family:'IM Fell English',serif; font-size:1.3rem; color:var(--ink); font-weight:400; margin-bottom:0.8rem; }
+  .body-p { font-size:0.92rem; color:var(--ink-mid); line-height:1.9; margin-bottom:0.85rem; }
+  .body-p em { color:var(--sage); font-style:italic; }
+
+  /* TABLE */
+  .comp-table { width:100%; border-collapse:collapse; margin:0.8rem 0 1.2rem; font-size:0.82rem; }
+  .comp-table th { font-family:'DM Sans',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink-faint); padding:0.5rem 0.8rem; text-align:left; border-bottom:2px solid var(--rule); }
+  .comp-table td { color:var(--ink-muted); padding:0.75rem 0.8rem; border-bottom:1px solid #e8e0cc; vertical-align:top; line-height:1.7; }
+  .comp-table td:first-child { font-family:'DM Sans',sans-serif; font-weight:600; color:var(--ink); font-size:0.8rem; white-space:nowrap; }
+
+  /* BULLET LIST */
+  .detail-list { list-style:none; display:flex; flex-direction:column; gap:0.6rem; margin:0.5rem 0 1rem; }
+  .detail-list li { font-size:0.86rem; color:var(--ink-muted); padding-left:1.4rem; position:relative; line-height:1.75; }
+  .detail-list li::before { content:'—'; position:absolute; left:0; color:var(--ink-faint); }
+
+  /* SIDEBAR */
+  .side-section { margin-bottom:1.8rem; padding-bottom:1.8rem; border-bottom:1px solid #d4ccb4; }
+  .side-section:last-child { border-bottom:none; margin-bottom:0; }
+  .side-label { font-family:'DM Sans',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.8rem; }
+  .side-stat { font-family:'IM Fell English',serif; font-size:1.5rem; color:var(--ink); line-height:1; margin-bottom:0.15rem; }
+  .side-stat-label { font-family:'DM Sans',sans-serif; font-size:0.65rem; color:var(--ink-muted); }
+  .side-link { display:block; font-family:'DM Sans',sans-serif; font-size:0.72rem; font-weight:600; color:var(--sage); text-decoration:none; border-bottom:1px solid var(--sage-pale); padding-bottom:0.1rem; margin-bottom:0.5rem; transition:border-color 0.2s; }
+  .side-link:hover { border-color:var(--sage); }
+
+
+  @media (max-width:768px) {
+    .article-body { grid-template-columns:1fr; }
+    .side-col { border-top:1px solid #d0c8b0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <span class="masthead-vol">Portfolio · Vol. I</span>
+  <span class="masthead-logo"><a href="index.html">Sophia Bian</a></span>
+  <span class="masthead-right">Northwestern University<br>Electrical Engineering</span>
+</div>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="projects.html" class="active" aria-current="page">Projects</a>
+  <a href="about.html">About</a>
+  <a href="resume.html">Résumé</a>
+  <a href="music.html">Music</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<div class="back-bar">
+  <a href="projects.html" class="back-link">← Back to all projects</a>
+</div>
+
+<div class="article-header">
+  <div class="article-kicker">
+    <span>August 2026 – present</span>
+    <span class="status-badge">In Progress</span>
+  </div>
+  <h1 class="article-title">Northwestern Formula Racing:<br><em>Education Board</em></h1>
+  <p class="article-desc">
+    A CAN node PCB built for teaching, not racing. New members solder it, bring up its power tree,
+    get it talking on CAN, and read real sensors off it, which covers the basics of most boards on
+    the car. I'm designing it with Benson Zhang. We treat teachability as a design requirement on
+    the same level as correctness.
+  </p>
+  <div class="tag-row">
+    <span class="tag">Altium Designer</span>
+    <span class="tag">Schematic Design</span>
+    <span class="tag">PCB Layout</span>
+    <span class="tag">STM32</span>
+    <span class="tag">ΔΣ ADC</span>
+    <span class="tag">CAN Bus</span>
+    <span class="tag">Design Review</span>
+  </div>
+</div>
+
+<div class="article-body">
+  <div class="main-col">
+
+    <hr class="section-rule">
+    <p class="section-num">1. Overview</p>
+    <h2 class="section-title">A Board That Explains Itself</h2>
+    <p class="body-p">
+      Most of what new members need to learn on DAQ comes from real boards: through-hole and SMD
+      soldering, bringing up a power tree one rail at a time, CAN communication, and getting clean
+      sensor data. The Education Board puts all of that on one board that's safe to get wrong.
+    </p>
+    <p class="body-p">
+      Designing for teaching changed a lot of choices. A clever circuit that takes an hour to explain
+      loses to a plain one that makes the idea obvious. Our constraints: <em>no split ground planes</em>,
+      roughly the same board size as last year's, and every block should be readable by someone
+      seeing it for the first time.
+    </p>
+
+    <hr class="section-rule-thin">
+    <p class="section-num">2. Architecture</p>
+    <h2 class="section-title">Current Design</h2>
+    <table class="comp-table">
+      <thead><tr><th>Block</th><th>Part &amp; notes</th></tr></thead>
+      <tbody>
+        <tr><td>MCU</td><td>STM32U535CCU6 (UFQFPN-48), replacing the original STM32F405RGT6 (LQFP-64)</td></tr>
+        <tr><td>ADC</td><td>MCP3561R, 24-bit ΔΣ, 0–3.3V single-ended with an internal 2.4V reference</td></tr>
+        <tr><td>Sensor</td><td>Force-sensing resistor in a 10k divider, RC-filtered into ADC CH0</td></tr>
+        <tr><td>IMU</td><td>BMI323 on-board, over I²C</td></tr>
+        <tr><td>CAN</td><td>TCAN3403DRQ1 transceiver</td></tr>
+        <tr><td>Power</td><td>GLV → Traco TSR 1-2450E (5V) → TLV1117LV33 (3.3V), plus USB-C as a second source</td></tr>
+      </tbody>
+    </table>
+
+    <hr class="section-rule-thin">
+    <p class="section-num">3. Design History</p>
+    <h2 class="section-title">From Load Cell to FSR</h2>
+    <p class="body-p">
+      The first version had a TAL220 load cell in a Wheatstone bridge read by an <em>ADS1231</em>.
+      I redrew it as a quarter-bridge and worked
+      through porting the ADS1231's interface, which turned out not to be standard SPI. It's a
+      two-wire clocked shift-out with no MOSI or chip select and a 1 MHz clock ceiling.
+    </p>
+    <p class="body-p">
+      Eventually we swapped the whole front end for an <em>FSR divider</em> into an <em>MCP3561R</em>.
+      A bridge amplifier with a fixed gain of 128 is a lot to explain on someone's first day. A
+      voltage divider into a general-purpose ADC teaches the same acquisition chain (sensor, filter,
+      ADC, MCU) with far less to explain first.
+    </p>
+
+    <hr class="section-rule-thin">
+    <p class="section-num">4. Power</p>
+    <h2 class="section-title">One PMOS, Three Lessons</h2>
+    <p class="body-p">
+      The board runs from the car's GLV rail or from USB-C. When 12V is present, a divider pulls the
+      PMOS gate high so USB VBUS can't backfeed into the rest of the board. We use that same PMOS
+      topology for <em>reverse-polarity protection</em> and for <em>OR-ing the two sources</em>. That
+      was on purpose: once someone understands one PMOS circuit, they can read all three.
+    </p>
+
+    <hr class="section-rule-thin">
+    <p class="section-num">5. Layout Plan</p>
+    <h2 class="section-title">Zones by Return Current</h2>
+    <p class="body-p">
+      4-layer, 1.6mm, 85 × 60mm, with every part on the top side. The bottom is only ground pour,
+      stitching, and silkscreen, so there's one side to solder and one side to label.
+    </p>
+    <ul class="detail-list">
+      <li>Five placement zones grouped by return-current domain: analog (ADC/FSR), digital core (MCU/IMU), power, CAN + SWD, and USB + user I/O</li>
+      <li>Stackup: top signals / solid ground on L2 with no splits / rail pours and slow signals on L3 / routing plus ground on L4</li>
+      <li>No moat around analog ground. AGND merges into GND as one net, and digital routing is kept out of the analog zone instead</li>
+      <li>No controlled impedance. USB and CAN edge rates are too slow for traces this short to matter</li>
+    </ul>
+
+    <hr class="section-rule-thin">
+    <p class="section-num">6. Review</p>
+    <h2 class="section-title">What Design Review Caught</h2>
+    <p class="body-p">
+      We've been through a schematic review, a punch list, and two passes of a layout plan. The most
+      recent review turned up several blocker-level issues that have to be fixed before placement:
+    </p>
+    <ul class="detail-list">
+      <li><em>Two MCUs on one sheet.</em> The main symbol is the U535, but a leftover power-pin part still carries the old F405 footprint. It has to be merged away before any layout can start.</li>
+      <li><em>A net-name break.</em> The switcher output and LDO input have different net names, so as drawn the 3.3V rail never gets power.</li>
+      <li><em>SWD pinout.</em> SWDIO and SWCLK are swapped, and pin 3 is tied to 3.3V where the ARM Cortex Debug standard puts GND. A standard cable would short the probe's ground to the rail.</li>
+      <li><em>Pin map check.</em> Confirming the UFQFPN-48 pinout against the datasheet before committing to the rotated MCU in the floorplan, and remapping two signals to the package side that faces their zone.</li>
+      <li><em>Filter cleanup.</em> Removing a redundant NRST RC, and replacing an ADC-supply ferrite whose LC with the bulk caps peaks about 12dB near 65kHz. A plain 10Ω resistor gives a real filter with no peaking.</li>
+    </ul>
+
+    <hr class="section-rule-thin">
+    <p class="section-num">7. Cost</p>
+    <h2 class="section-title">BOM</h2>
+    <p class="body-p">
+      The raw BOM export wasn't usable for pricing: some rows showed per-1000 prices that were never
+      divided down, and the three main ICs had no price at all. After cleaning it up, a single board
+      comes to about <em>$40.51</em>, and we expect around <em>$28–32 per board</em> at the 10–25
+      unit quantities a team order would use.
+    </p>
+
+  </div>
+  <div class="side-col">
+
+    <div class="side-section">
+      <p class="side-label">Status</p>
+      <p class="side-stat">In Progress</p>
+      <p class="side-stat-label">Schematic fixes from layout review before placement</p>
+    </div>
+
+    <div class="side-section">
+      <p class="side-label">Team</p>
+      <p class="side-stat">2</p>
+      <p class="side-stat-label">Designed with Benson Zhang</p>
+    </div>
+
+    <div class="side-section">
+      <p class="side-label">Board</p>
+      <p class="side-stat">85 × 60mm</p>
+      <p class="side-stat-label">4-layer · 1.6mm · single-sided SMT</p>
+    </div>
+
+    <div class="side-section">
+      <p class="side-label">Core Parts</p>
+      <p class="side-stat">U535 · MCP3561R</p>
+      <p class="side-stat-label">STM32U535CCU6 · MCP3561R · BMI323 · TCAN3403</p>
+    </div>
+
+    <div class="side-section">
+      <p class="side-label">Est. Cost</p>
+      <p class="side-stat">~$28–32</p>
+      <p class="side-stat-label">Per board at 10–25 units · ~$40.51 at qty 1</p>
+    </div>
+
+    <div class="side-section">
+      <p class="side-label">Organization</p>
+      <p style="font-family:'IM Fell English',serif; font-size:0.95rem; color:var(--ink);">Northwestern Formula Racing</p>
+      <p class="side-stat-label">DAQ subteam · Evanston, IL</p>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Sophia Bian</span>
+  <a href="projects.html">← Back to projects</a>
+</footer>
+
+</body>
+</html>
