@@ -103,20 +103,17 @@
   </div>
   <h1 class="article-title">Northwestern Formula Racing 2027:<br><em>(E)Education Board</em></h1>
   <p class="article-desc">
-    A CAN node PCB built for teaching, not racing. New members solder it, bring up its power tree,
-    get it talking on CAN, debug its firmware, and read real sensors off it. It's also meant to be the
-    schematic template for the subteam's future sensor boards. I'm designing it with Benson Zhang and
-    helping build the onboarding curriculum around it. We treat teachability as a design requirement
-    on the same level as correctness.
+    The (E)Education Board is a training board for new members of Northwestern Formula Racing's DAQ subteam.
+    Benson Zhang and I are designing it so that building and programming it teaches the basics behind most
+    of the boards on our car.
   </p>
   <div class="tag-row">
     <span class="tag">Altium Designer</span>
     <span class="tag">Schematic Design</span>
     <span class="tag">PCB Layout</span>
     <span class="tag">STM32</span>
-    <span class="tag">ΔΣ ADC</span>
     <span class="tag">CAN Bus</span>
-    <span class="tag">Design Review</span>
+    <span class="tag">Soldering</span>
   </div>
   <figure class="board-figure">
     <img src="eeducation.png" alt="(E)Education Board 3D render in Altium, with labeled zones for CAN, ADC, SWD, power protection, power selection, 12V to 5V and 5V to 3.3V conversion, and a testing zone">
@@ -129,103 +126,50 @@
 
     <hr class="section-rule">
     <p class="section-num">1. Overview</p>
-    <h2 class="section-title">A Board That Explains Itself</h2>
+    <h2 class="section-title">The Project</h2>
     <p class="body-p">
-      Most of what new members need to learn on DAQ comes from real boards: through-hole and SMD
-      soldering, bringing up a power tree one rail at a time, CAN communication, firmware debug, and
-      getting clean sensor data. The board puts all of that into a single build, and new members also
-      take it from Altium schematic to layout themselves.
+      Most new members join DAQ without having built a circuit board before. The (E)Education Board gives them
+      a real one to learn on. It's a small version of the kind of sensor board we put on the car: a
+      microcontroller, a sensor, and a connection to the car's <em>CAN</em> network.
     </p>
     <p class="body-p">
-      Designing for teaching changed a lot of choices. A clever circuit that takes an hour to explain
-      loses to a plain one that makes the idea obvious. Our constraints: <em>no split ground planes</em>,
-      roughly the same board size as last year's, and every block should be readable by someone
-      seeing it for the first time.
+      Because it follows the same layout as our other boards, it also works as a starting template when the
+      team designs new sensor boards.
     </p>
 
     <hr class="section-rule-thin">
-    <p class="section-num">2. Architecture</p>
-    <h2 class="section-title">Current Design</h2>
+    <p class="section-num">2. What It Teaches</p>
+    <h2 class="section-title">Learning by Building</h2>
+    <ul class="detail-list">
+      <li>Soldering small surface-mount parts</li>
+      <li>Powering up a board one step at a time and checking each voltage</li>
+      <li>Sending and receiving messages over CAN</li>
+      <li>Reading a sensor and turning it into useful data</li>
+      <li>Programming and debugging the microcontroller</li>
+      <li>Going from a schematic to a board layout in Altium</li>
+    </ul>
     <p class="body-p">
-      The core is an STM32, a CAN transceiver, input protection, and an external ADC. That's the same
-      skeleton as most of our sensor boards, which is why it doubles as the reference schematic for them.
+      We're also putting together the onboarding lessons that go along with the board.
+    </p>
+
+    <hr class="section-rule-thin">
+    <p class="section-num">3. Hardware</p>
+    <h2 class="section-title">Board Features</h2>
+    <p class="body-p">
+      Each section of the board is outlined and labeled, so it's easy to tell what every part does.
     </p>
     <table class="comp-table">
-      <thead><tr><th>Block</th><th>Part &amp; notes</th></tr></thead>
+      <thead><tr><th>Subsystem</th><th>Details</th></tr></thead>
       <tbody>
-        <tr><td>MCU</td><td>STM32U535CCU6 (UFQFPN-48), replacing the original STM32F405RGT6 (LQFP-64)</td></tr>
-        <tr><td>ADC</td><td>MCP3561R, 24-bit ΔΣ, 0–3.3V single-ended with an internal 2.4V reference</td></tr>
-        <tr><td>Sensor</td><td>Force-sensing resistor in a 10k divider, RC-filtered into ADC CH0</td></tr>
-        <tr><td>IMU</td><td>BMI323 on-board, over I²C</td></tr>
-        <tr><td>CAN</td><td>TCAN3403DRQ1 transceiver</td></tr>
-        <tr><td>Power</td><td>GLV → Traco TSR 1-2450E (5V) → TLV1117LV33 (3.3V), plus USB-C as a second source</td></tr>
+        <tr><td>Microcontroller</td><td>STM32 with an external crystal, plus reset and boot buttons</td></tr>
+        <tr><td>Sensor</td><td>Force sensor read through an external ADC</td></tr>
+        <tr><td>CAN</td><td>Same kind of connection our car's boards use to talk to each other</td></tr>
+        <tr><td>Power</td><td>Runs from the car's 12V supply or USB-C, with protection against plugging power in backwards</td></tr>
+        <tr><td>Voltage Conversion</td><td>12V down to 5V, then 5V down to 3.3V</td></tr>
+        <tr><td>Programming</td><td>SWD header for flashing and debugging firmware</td></tr>
+        <tr><td>Testing Zone</td><td>LEDs and test points for the 12V, 5V, and 3.3V rails, so members can check each one during bring-up</td></tr>
       </tbody>
     </table>
-
-    <hr class="section-rule-thin">
-    <p class="section-num">3. Design History</p>
-    <h2 class="section-title">From Load Cell to FSR</h2>
-    <p class="body-p">
-      The first version had a TAL220 load cell in a Wheatstone bridge read by an <em>ADS1231</em>.
-      I redrew it as a quarter-bridge and worked
-      through porting the ADS1231's interface, which turned out not to be standard SPI. It's a
-      two-wire clocked shift-out with no MOSI or chip select and a 1 MHz clock ceiling.
-    </p>
-    <p class="body-p">
-      Eventually we swapped the whole front end for an <em>FSR divider</em> into an <em>MCP3561R</em>.
-      A bridge amplifier with a fixed gain of 128 is a lot to explain on someone's first day. A
-      voltage divider into a general-purpose ADC teaches the same acquisition chain (sensor, filter,
-      ADC, MCU) with far less to explain first.
-    </p>
-
-    <hr class="section-rule-thin">
-    <p class="section-num">4. Power</p>
-    <h2 class="section-title">One PMOS, Three Lessons</h2>
-    <p class="body-p">
-      The board runs from the car's GLV rail or from USB-C. When 12V is present, a divider pulls the
-      PMOS gate high so USB VBUS can't backfeed into the rest of the board. We use that same PMOS
-      topology for <em>reverse-polarity protection</em> and for <em>OR-ing the two sources</em>. That
-      was on purpose: once someone understands one PMOS circuit, they can read all three.
-    </p>
-
-    <hr class="section-rule-thin">
-    <p class="section-num">5. Layout Plan</p>
-    <h2 class="section-title">Zones by Return Current</h2>
-    <p class="body-p">
-      4-layer, 1.6mm, 85 × 60mm, with every part on the top side. The bottom is only ground pour,
-      stitching, and silkscreen, so there's one side to solder and one side to label.
-    </p>
-    <ul class="detail-list">
-      <li>Five placement zones grouped by return-current domain: analog (ADC/FSR), digital core (MCU/IMU), power, CAN + SWD, and USB + user I/O</li>
-      <li>Stackup: top signals / solid ground on L2 with no splits / rail pours and slow signals on L3 / routing plus ground on L4</li>
-      <li>No moat around analog ground. AGND merges into GND as one net, and digital routing is kept out of the analog zone instead</li>
-      <li>No controlled impedance. USB and CAN edge rates are too slow for traces this short to matter</li>
-    </ul>
-
-    <hr class="section-rule-thin">
-    <p class="section-num">6. Review</p>
-    <h2 class="section-title">What Design Review Caught</h2>
-    <p class="body-p">
-      We've been through a schematic review, a punch list, and two passes of a layout plan. The most
-      recent review turned up several blocker-level issues that have to be fixed before placement:
-    </p>
-    <ul class="detail-list">
-      <li><em>Two MCUs on one sheet.</em> The main symbol is the U535, but a leftover power-pin part still carries the old F405 footprint. It has to be merged away before any layout can start.</li>
-      <li><em>A net-name break.</em> The switcher output and LDO input have different net names, so as drawn the 3.3V rail never gets power.</li>
-      <li><em>SWD pinout.</em> SWDIO and SWCLK are swapped, and pin 3 is tied to 3.3V where the ARM Cortex Debug standard puts GND. A standard cable would short the probe's ground to the rail.</li>
-      <li><em>Pin map check.</em> Confirming the UFQFPN-48 pinout against the datasheet before committing to the rotated MCU in the floorplan, and remapping two signals to the package side that faces their zone.</li>
-      <li><em>Filter cleanup.</em> Removing a redundant NRST RC, and replacing an ADC-supply ferrite whose LC with the bulk caps peaks about 12dB near 65kHz. A plain 10Ω resistor gives a real filter with no peaking.</li>
-    </ul>
-
-    <hr class="section-rule-thin">
-    <p class="section-num">7. Cost</p>
-    <h2 class="section-title">BOM</h2>
-    <p class="body-p">
-      The raw BOM export wasn't usable for pricing: some rows showed per-1000 prices that were never
-      divided down, and the three main ICs had no price at all. After cleaning it up, a single board
-      comes to about <em>$40.51</em>, and we expect around <em>$28–32 per board</em> at the 10–25
-      unit quantities a team order would use.
-    </p>
 
   </div>
   <div class="side-col">
@@ -233,33 +177,18 @@
     <div class="side-section">
       <p class="side-label">Status</p>
       <p class="side-stat">In Progress</p>
-      <p class="side-stat-label">Schematic fixes from layout review before placement</p>
+      <p class="side-stat-label">Design in progress</p>
     </div>
-
     <div class="side-section">
       <p class="side-label">Team</p>
       <p class="side-stat">2</p>
       <p class="side-stat-label">Designed with Benson Zhang</p>
     </div>
-
     <div class="side-section">
-      <p class="side-label">Board</p>
-      <p class="side-stat">85 × 60mm</p>
-      <p class="side-stat-label">4-layer · 1.6mm · single-sided SMT</p>
+      <p class="side-label">Purpose</p>
+      <p class="side-stat">Training</p>
+      <p class="side-stat-label">Onboarding for new DAQ members</p>
     </div>
-
-    <div class="side-section">
-      <p class="side-label">Core Parts</p>
-      <p class="side-stat">U535 · MCP3561R</p>
-      <p class="side-stat-label">STM32U535CCU6 · MCP3561R · BMI323 · TCAN3403</p>
-    </div>
-
-    <div class="side-section">
-      <p class="side-label">Est. Cost</p>
-      <p class="side-stat">~$28–32</p>
-      <p class="side-stat-label">Per board at 10–25 units · ~$40.51 at qty 1</p>
-    </div>
-
     <div class="side-section">
       <p class="side-label">Organization</p>
       <p style="font-family:'IM Fell English',serif; font-size:0.95rem; color:var(--ink);">Northwestern Formula Racing</p>

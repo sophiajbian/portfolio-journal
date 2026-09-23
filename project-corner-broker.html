@@ -98,11 +98,9 @@
   </div>
   <h1 class="article-title">Northwestern Formula Racing 2027:<br><em>Corner Brokers</em></h1>
   <p class="article-desc">
-    The Corner Brokers are four small boards, one at each wheel, that read the sensors at that corner and
-    publish the readings on the car's CAN bus. I'm the layout lead and primary designer for this year's
-    version (NFR27), taking it over from a senior who designed NFR26 and has since graduated. It's the
-    first PCB I've designed from a blank schematic, and I'm responsible for it from schematic through
-    firmware, bring-up, and getting it on the car.
+    For Northwestern Formula Racing's 2027 car, I'm designing the Corner Brokers: four small boards, one at
+    each wheel, that read sensors on the suspension and brakes and send that data to the rest of the car.
+    I'm the lead designer this year, and it's the first PCB I've designed from scratch.
   </p>
   <div class="tag-row">
     <span class="tag">Altium Designer</span>
@@ -120,84 +118,51 @@
 
     <hr class="section-rule">
     <p class="section-num">1. Overview</p>
-    <h2 class="section-title">One Board, Four Corners</h2>
+    <h2 class="section-title">The Project</h2>
     <p class="body-p">
-      Four boards form a distributed sensor network, one per wheel. Each reads <em>pushrod and tie-rod
-      strain gauges</em>, a <em>suspension potentiometer</em>, and a <em>brake rotor temperature</em> sensor,
-      conditions each signal, and publishes the readings to the vehicle CAN network.
+      Northwestern Formula Racing's Data Acquisition (DAQ) subteam builds the electronics that collect data from
+      the car. The Corner Brokers are part of that. Each wheel gets its own board, which reads the sensors at
+      that corner and sends the readings over <em>CAN</em>, the network the car's electronics use to talk to
+      each other.
     </p>
     <p class="body-p">
-      The point is to measure the suspension under real driving loads. That gives the team data to validate
-      future designs against, and it provides the per-corner load feedback that torque vectoring needs.
+      The goal is to see how the suspension actually behaves under real driving loads. The team can use that
+      data to check future designs, and it also gives the car the per-wheel load information it needs for
+      torque vectoring (controlling how much power goes to each wheel).
     </p>
     <p class="body-p">
-      Inheriting a board is a strange starting point. NFR26 worked, mostly, so every change I make has
-      to earn its place against a known-good design. A lot of my decisions this year came down to
-      that: take the lower-risk option unless the old board had a real problem.
-    </p>
-
-    <hr class="section-rule-thin">
-    <p class="section-num">2. Starting From Data</p>
-    <h2 class="section-title">Reading Last Year's Logs</h2>
-    <p class="body-p">
-      Before picking parts, I went through NFR26's drive-day logs in <em>Python</em> to see what the
-      sensors had actually recorded on track. Those numbers, not the datasheets, are what I used to
-      make the sensor and gain decisions below.
+      A senior on the team designed last year's version before graduating. I took it over this year and am
+      redesigning it from the schematic up.
     </p>
 
     <hr class="section-rule-thin">
-    <p class="section-num">3. Hardware</p>
-    <h2 class="section-title">What Changed From NFR26</h2>
+    <p class="section-num">2. Hardware</p>
+    <h2 class="section-title">The Board</h2>
     <p class="body-p">
-      The schematic is in <em>Altium</em>, split across hierarchical sheets for Power, CAN, ADC, MCU,
-      and Connectors. Every board has to fit a <em>38.5 × 21 mm</em> envelope so it can mount at the corner,
-      and that constraint drove most of the part choices. I designed the analog front end for each sensor
-      type, choosing the amplifier topology and filter response for each signal path. Here are the main
-      changes from last year and why I made them:
+      I'm designing the board in <em>Altium Designer</em>. It has to be small enough to mount at the wheel,
+      about 38.5 × 21 mm, so a lot of the work is fitting everything into that space.
     </p>
     <table class="comp-table">
-      <thead><tr><th>Block</th><th>Decision</th></tr></thead>
+      <thead><tr><th>Subsystem</th><th>Details</th></tr></thead>
       <tbody>
-        <tr><td>MCU</td><td>STM32L432KCU6 (UFQFPN32) in place of last year's STM32F405. The board doesn't need the F405's pin count, and the smaller package frees up a lot of space.</td></tr>
-        <tr><td>ADC</td><td>ADS1232. The ADS1235 and ADS1220 are better parts on paper, but the ADS1232 matches a design we know works and costs less across four boards.</td></tr>
-        <tr><td>Power</td><td>TPSM33615 buck module feeding a TLV1117LV33 LDO. Last year's linear regulators ran hot; the buck does most of the step-down so the LDO only has to cover the last bit.</td></tr>
-        <tr><td>CAN</td><td>TCAN3403DRQ1 transceiver, with the TVS protection repositioned.</td></tr>
-        <tr><td>Reverse polarity</td><td>FDN5618P PMOS, an in-stock substitute for a part with a 40-week lead time. I added a TVS gate clamp after design review.</td></tr>
+        <tr><td>Strain Gauges</td><td>Measure how much force goes through the pushrod and tie-rod</td></tr>
+        <tr><td>Suspension Pot</td><td>Measures how far the suspension moves</td></tr>
+        <tr><td>Brake Temperature</td><td>Measures how hot the brake rotor gets</td></tr>
+        <tr><td>ADC</td><td>Converts the sensor signals into numbers the microcontroller can read</td></tr>
+        <tr><td>Microcontroller</td><td>STM32 that collects the readings and sends them out</td></tr>
+        <tr><td>CAN</td><td>Connects the board to the rest of the car's electronics</td></tr>
+        <tr><td>Power</td><td>Steps the car's low-voltage supply down to what the board needs, with reverse-polarity protection</td></tr>
       </tbody>
     </table>
 
     <hr class="section-rule-thin">
-    <p class="section-num">4. Tradeoffs</p>
-    <h2 class="section-title">DC vs. AC Excitation</h2>
-    <p class="body-p">
-      NFR26's strain readings drifted, and AC excitation is the textbook fix: flipping the bridge
-      polarity cancels out thermocouple offsets and some slow drift. It also costs board area, parts,
-      and complexity, and this board is supposed to be small and cheap to build four times.
-    </p>
-    <p class="body-p">
-      I stayed with <em>DC excitation</em>. To reduce the zero-drift error we measured on last year's
-      boards, I'm reworking the strain channel and improving gauge bonding instead. I gave up AC's drift
-      advantage to get a smaller footprint and a lower cost.
-    </p>
-
-    <hr class="section-rule-thin">
-    <p class="section-num">5. Debugging</p>
-    <h2 class="section-title">The Clipping Bug</h2>
-    <p class="body-p">
-      While working through the schematic I found that the bridges were excited at <em>5V</em> but the
-      ADC's reference was <em>3.3V</em>. The front end could put out more signal than the reference
-      allowed, so readings were clipping at full scale. Tracking that down meant following the
-      excitation and reference rails through the whole signal path instead of checking parts one at a time.
-    </p>
-
-    <hr class="section-rule-thin">
-    <p class="section-num">6. Next</p>
-    <h2 class="section-title">PDR and Fab-Out</h2>
+    <p class="section-num">3. My Role</p>
+    <h2 class="section-title">What I'm Working On</h2>
     <ul class="detail-list">
-      <li>Preparing the board's Preliminary Design Review (PDR) for the rest of the team</li>
-      <li>Layout once the schematic clears review</li>
-      <li>Targeting fab-out in October 2026, then hand-assembling and bringing up each board</li>
-      <li>C/C++ firmware and on-car integration</li>
+      <li>Designing the schematic and layout, including the circuits that clean up each sensor signal before it's measured</li>
+      <li>Improving on last year's board, which had strain readings that drifted over time and power parts that ran hot</li>
+      <li>Going through last year's driving data in Python to decide what the new board needed</li>
+      <li>Next up: ordering boards, assembling and testing them, writing firmware, and getting them on the car</li>
     </ul>
 
   </div>
@@ -206,39 +171,23 @@
     <div class="side-section">
       <p class="side-label">Status</p>
       <p class="side-stat">In Progress</p>
-      <p class="side-stat-label">Preparing PDR · fab-out targeted October 2026</p>
+      <p class="side-stat-label">Targeting fab-out in October 2026</p>
     </div>
-
     <div class="side-section">
       <p class="side-label">Role</p>
-      <p class="side-stat">Layout Lead</p>
-      <p class="side-stat-label">Primary board designer · first PCB designed from scratch</p>
+      <p class="side-stat">Lead Designer</p>
+      <p class="side-stat-label">First PCB designed from scratch</p>
     </div>
-
     <div class="side-section">
       <p class="side-label">Boards on Car</p>
       <p class="side-stat">4</p>
-      <p class="side-stat-label">One per wheel · pushrod &amp; tie-rod strain, suspension pot, rotor temp</p>
+      <p class="side-stat-label">One per wheel</p>
     </div>
-
     <div class="side-section">
-      <p class="side-label">Board Envelope</p>
+      <p class="side-label">Board Size</p>
       <p class="side-stat">38.5 × 21 mm</p>
-      <p class="side-stat-label">Target size for corner mounting</p>
+      <p class="side-stat-label">Small enough to mount at the wheel</p>
     </div>
-
-    <div class="side-section">
-      <p class="side-label">Core Parts</p>
-      <p class="side-stat">L432 · ADS1232</p>
-      <p class="side-stat-label">STM32L432KCU6 · ADS1232 · TPSM33615 · TCAN3403</p>
-    </div>
-
-    <div class="side-section">
-      <p class="side-label">Tools</p>
-      <p class="side-stat">Altium</p>
-      <p class="side-stat-label">Hierarchical schematic · Python for drive-log analysis</p>
-    </div>
-
     <div class="side-section">
       <p class="side-label">Organization</p>
       <p style="font-family:'IM Fell English',serif; font-size:0.95rem; color:var(--ink);">Northwestern Formula Racing</p>
