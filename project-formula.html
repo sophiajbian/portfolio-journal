@@ -6,7 +6,7 @@
 <title>NFR Dashboard — Sophia Bian</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<meta name="description" content="Formula SAE dashboard: C++ firmware, Altium PCB layout (V2/V3), CAN bus, and Python tooling for Northwestern Formula Racing.">
+<meta name="description" content="Formula SAE dashboard: 4-layer Raspberry Pi CM4 carrier board (Altium, V2/V3), C++ CAN application, and Python DBC tooling for Northwestern Formula Racing.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="NFR Dashboard — Sophia Bian">
 <meta property="og:description" content="Formula SAE dashboard: C++ firmware, Altium PCB layout (V2/V3), CAN bus, and Python tooling for Northwestern Formula Racing.">
@@ -113,14 +113,14 @@
 
 <div class="article-header">
   <div class="article-kicker">
-    <span>Sept 2025 – June 2026</span>
-    <span class="status-badge complete">Completed</span>
+    <span>Sept 2025 – present</span>
+    <span class="status-badge">In Progress</span>
   </div>
   <h1 class="article-title">Northwestern Formula Racing:<br><em>Dashboard</em></h1>
   <p class="article-desc">
-    For Northwestern Formula Racing's 2026 build cycle, I worked on embedded software and PCB design for the 
-    Dashboard. I spent >6 months contributing to a ~25,000-line C++ codebase alongside a team of 7, building 
-    the driver-facing firmware, hardware, and tooling.
+    The Dashboard is the car's driver-facing display and vehicle interface. For Northwestern Formula Racing's 2026
+    build cycle, I laid out and brought up its controller board, a Raspberry Pi CM4 carrier, and wrote C++ and
+    Python for it as one of a team of 7 on a ~25,000-line C++ codebase. I'm now designing the next revision.
   </p>
   <div class="tag-row">
     <span class="tag">C++</span>
@@ -158,53 +158,60 @@
     <hr class="section-rule">
     <p class="section-num">1. Overview</p>
     <h2 class="section-title">The Project</h2>
-    <p class="body-p"> <!-- okay this needs major revision-->
+    <p class="body-p">
       Northwestern Formula Racing's Data Acquisition (DAQ) subteam builds the embedded systems behind the car's
       telemetry, driver interface, and real-time vehicle monitoring. The Dashboard is a subgroup
-      within the DAQ subteam. I joined our team of 7 working on a codebase of roughly <em>25,000 lines of C++</em>
+      within DAQ. I joined our team of 7 working on a codebase of roughly <em>25,000 lines of C++</em>
       (plus around 10,000 lines across other languages).
     </p>
     <p class="body-p">
-      My work spans both hardware and software. I worked on PCB layout and bring-up of the Dashboard's controller board,
-      application-layer firmware for driver feedback, and tooling for integration testing and debugging
-      across the DAQ and low voltage electronics systems.
+      My work covers both hardware and software: layout and bring-up of the Dashboard's controller board,
+      the C++ application that runs on it, and Python tooling the team uses during vehicle integration.
     </p>
 
-    <hr class="section-rule-thin"> <!-- ask evan what the eaxct issues were-->
+    <hr class="section-rule-thin">
     <p class="section-num">2. Hardware</p>
     <h2 class="section-title">Dashboard Controller PCB</h2>
     <p class="body-p">
-      I worked on the layout for V2 and V3 of the Dashboard's controller PCB in <em>Altium Designer</em>,
-      iterating on the initial design to address issues found during bring-up. The layout involved
-      careful handling of <em>polygon pours, higher-current power sections, and differential signal
-      routing</em> within the car's packaging constraints. <!-- ask what the exact issues were again; AND gate, replacing components, etc. -->
+      The controller is a <em>4-layer carrier board</em> for a Raspberry Pi CM4. I laid out two revisions (V2 and V3)
+      in <em>Altium Designer</em>. The board carries the CM4, a CAN transceiver, USB 2.0, MIPI DSI video out to the
+      driver display, and the driver I/O: addressable LEDs, buttons, and other inputs.
     </p>
     <table class="comp-table">
       <thead><tr><th>Subsystem</th><th>Details</th></tr></thead>
       <tbody>
-        <tr><td>Polygon Pours</td><td>Ground and power planes with deliberate pour strategy for signal integrity</td></tr>
-        <tr><td>High-Current Sections</td><td>Trace width and copper weight sizing for power delivery to display and LED subsystems</td></tr>
-        <tr><td>Differential Signals</td><td>Length-matched differential pairs for CAN bus communication</td></tr>
-        <tr><td>Display Interface</td><td>Driver-facing readout for real-time vehicle state and fault conditions</td></tr>
+        <tr><td>Power</td><td>Power tree designed for 3 A nominal with input protection. Power traces and polygon pours sized for the load</td></tr>
+        <tr><td>CAN</td><td>Transceiver to the vehicle network, with the differential pair impedance-matched</td></tr>
+        <tr><td>Display</td><td>MIPI DSI video output from the CM4 to the driver display</td></tr>
+        <tr><td>Driver I/O</td><td>Addressable LED strips, buttons, and inputs, plus USB 2.0</td></tr>
       </tbody>
     </table>
     <p class="body-p">
-      After the layout of the Dashboard's controller board, I handled the board's bring-up; I hand-soldered components, debugged electrical issues,
-      and ran integration tests to validate each subsystem before vehicle installation.
+      I brought up both revisions from bare boards myself: hand soldering, checking each power rail, flashing
+      firmware, and then integrating the board on the car.
     </p>
 
     <hr class="section-rule-thin">
-    <p class="section-num">3. Embedded Software</p>
-    <h2 class="section-title">Firmware &amp; Tooling</h2>
+    <p class="section-num">3. Debugging</p>
+    <h2 class="section-title">Flickering LEDs</h2>
     <p class="body-p">
-      The dashboard firmware is written primarily in <em>C++</em> and architected to parse incoming CAN messages
-      and display meaningful vehicle status information to the driver.
+      The dashboard's addressable LED strips flickered intermittently and sometimes showed the wrong colors.
+      I traced the problem to the <em>PWM drive</em>. For the second revision, I designed <em>AND-gate and
+      multiplexer logic</em> into the layout so all the strips could run from a single PWM output.
     </p>
+    <p class="body-p">
+      In the revision I'm designing now, the strips are chained into one addressable run instead. That removes
+      the gating logic entirely and halves the board's footprint.
+    </p>
+
+    <hr class="section-rule-thin">
+    <p class="section-num">4. Software</p>
+    <h2 class="section-title">Firmware &amp; Tooling</h2>
     <ul class="detail-list">
-      <li>Wrote application-layer firmware giving the driver real-time insight into vehicle state, battery health, braking, and system faults via display and NeoPixel LED indicators</li>
-      <li>Built dedicated debugging screens for integration testing of the DAQ system and other low-voltage electronics; used during bringup and drive testing</li>
-      <li>Wrote a Python script to auto-generate debugging screen code, cutting manual software development time significantly</li>
-      <li>Maintained CAN communication software as DBC definitions evolved, keeping the dashboard in sync with other vehicle systems</li>
+      <li>Wrote the C++ application that decodes vehicle CAN traffic and shows live sensor measurements on the driver display</li>
+      <li>Built a diagnostics page that surfaces inverter and system faults for analysis, used during bring-up and drive testing</li>
+      <li>Wrote Python tooling that generates dashboard signal viewers from the team's CAN DBC file. The team uses it as the source of truth for brake bias and sensor calibration during vehicle integration</li>
+      <li>Kept the dashboard's CAN handling in sync as the DBC definitions changed</li>
     </ul>
 
   </div>
@@ -212,8 +219,8 @@
 
     <div class="side-section">
       <p class="side-label">Status</p>
-      <p class="side-stat">Completed</p>
-      <p class="side-stat-label">June 2026</p>
+      <p class="side-stat">In Progress</p>
+      <p class="side-stat-label">V2 &amp; V3 on the car · next revision in design</p>
     </div>
 
     <div class="side-section">
@@ -230,8 +237,8 @@
 
     <div class="side-section">
       <p class="side-label">PCB Revisions</p>
-      <p class="side-stat">V1 → V2→ V3</p>
-      <p class="side-stat-label">Dashboard controller · Altium Designer · polygon pours, differential signals</p>
+      <p class="side-stat">V2 → V3</p>
+      <p class="side-stat-label">4-layer Raspberry Pi CM4 carrier · Altium Designer</p>
     </div>
 
     <div class="side-section">

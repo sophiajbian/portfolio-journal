@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NFR27 Corner Broker — Sophia Bian</title>
+<title>NFR27 Corner Brokers — Sophia Bian</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <meta name="description" content="NFR27 Corner Broker: a per-wheel sensor and CAN node for Northwestern Formula Racing. Strain gauges, suspension pot, rotor temperature, STM32L432, ADS1232, Altium.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="NFR27 Corner Broker — Sophia Bian">
+<meta property="og:title" content="NFR27 Corner Brokers — Sophia Bian">
 <meta property="og:description" content="NFR27 Corner Broker: a per-wheel sensor and CAN node for Northwestern Formula Racing. Strain gauges, suspension pot, rotor temperature, STM32L432, ADS1232, Altium.">
 <meta property="og:url" content="https://sophiajbian.github.io/portfolio-journal/project-corner-broker.html">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23fdfaf4'/><text x='50' y='72' font-size='64' text-anchor='middle' font-family='Georgia' font-style='italic' fill='%233a5a3e'>S</text></svg>">
@@ -93,15 +93,16 @@
 
 <div class="article-header">
   <div class="article-kicker">
-    <span>Summer 2026 – present</span>
+    <span>2026 – present</span>
     <span class="status-badge">In Progress</span>
   </div>
-  <h1 class="article-title">Northwestern Formula Racing 2027:<br><em>Corner Broker</em></h1>
+  <h1 class="article-title">Northwestern Formula Racing 2027:<br><em>Corner Brokers</em></h1>
   <p class="article-desc">
-    The Corner Broker is a small board that sits at each wheel of the car, reads the sensors at that
-    corner, and puts the data on the CAN bus. I'm the layout lead and primary designer for this
-    year's version (NFR27), taking it over from a senior who designed NFR26 and has since graduated.
-    It's the first PCB I've designed from a blank schematic.
+    The Corner Brokers are four small boards, one at each wheel, that read the sensors at that corner and
+    publish the readings on the car's CAN bus. I'm the layout lead and primary designer for this year's
+    version (NFR27), taking it over from a senior who designed NFR26 and has since graduated. It's the
+    first PCB I've designed from a blank schematic, and I'm responsible for it from schematic through
+    firmware, bring-up, and getting it on the car.
   </p>
   <div class="tag-row">
     <span class="tag">Altium Designer</span>
@@ -121,9 +122,13 @@
     <p class="section-num">1. Overview</p>
     <h2 class="section-title">One Board, Four Corners</h2>
     <p class="body-p">
-      Four identical boards go on the car, one per wheel. Each one reads <em>two strain gauges</em>,
-      a <em>suspension potentiometer</em>, and a <em>brake rotor temperature</em> sensor, then sends
-      everything over CAN to the rest of the DAQ system.
+      Four boards form a distributed sensor network, one per wheel. Each reads <em>pushrod and tie-rod
+      strain gauges</em>, a <em>suspension potentiometer</em>, and a <em>brake rotor temperature</em> sensor,
+      conditions each signal, and publishes the readings to the vehicle CAN network.
+    </p>
+    <p class="body-p">
+      The point is to measure the suspension under real driving loads. That gives the team data to validate
+      future designs against, and it provides the per-corner load feedback that torque vectoring needs.
     </p>
     <p class="body-p">
       Inheriting a board is a strange starting point. NFR26 worked, mostly, so every change I make has
@@ -145,7 +150,10 @@
     <h2 class="section-title">What Changed From NFR26</h2>
     <p class="body-p">
       The schematic is in <em>Altium</em>, split across hierarchical sheets for Power, CAN, ADC, MCU,
-      and Connectors. Here are the main changes and why I made them:
+      and Connectors. Every board has to fit a <em>38.5 × 21 mm</em> envelope so it can mount at the corner,
+      and that constraint drove most of the part choices. I designed the analog front end for each sensor
+      type, choosing the amplifier topology and filter response for each signal path. Here are the main
+      changes from last year and why I made them:
     </p>
     <table class="comp-table">
       <thead><tr><th>Block</th><th>Decision</th></tr></thead>
@@ -167,8 +175,9 @@
       and complexity, and this board is supposed to be small and cheap to build four times.
     </p>
     <p class="body-p">
-      I stayed with <em>DC excitation</em> and I'm going after last year's drift with better gauge
-      bonding instead. I gave up AC's drift advantage to get a smaller footprint and a lower cost.
+      I stayed with <em>DC excitation</em>. To reduce the zero-drift error we measured on last year's
+      boards, I'm reworking the strain channel and improving gauge bonding instead. I gave up AC's drift
+      advantage to get a smaller footprint and a lower cost.
     </p>
 
     <hr class="section-rule-thin">
@@ -187,7 +196,8 @@
     <ul class="detail-list">
       <li>Preparing the board's Preliminary Design Review (PDR) for the rest of the team</li>
       <li>Layout once the schematic clears review</li>
-      <li>Targeting fab-out in October 2026, followed by bring-up of all four boards</li>
+      <li>Targeting fab-out in October 2026, then hand-assembling and bringing up each board</li>
+      <li>C/C++ firmware and on-car integration</li>
     </ul>
 
   </div>
@@ -208,7 +218,13 @@
     <div class="side-section">
       <p class="side-label">Boards on Car</p>
       <p class="side-stat">4</p>
-      <p class="side-stat-label">One per wheel · 2× strain, suspension pot, rotor temp</p>
+      <p class="side-stat-label">One per wheel · pushrod &amp; tie-rod strain, suspension pot, rotor temp</p>
+    </div>
+
+    <div class="side-section">
+      <p class="side-label">Board Envelope</p>
+      <p class="side-stat">38.5 × 21 mm</p>
+      <p class="side-stat-label">Target size for corner mounting</p>
     </div>
 
     <div class="side-section">
